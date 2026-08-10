@@ -59,7 +59,7 @@
   .popup-wrap .src a:hover{text-decoration:underline;}
   .leaflet-popup-content-wrapper{border-radius:10px;}
 
-  @media (max-width:900px){
+  @media (max-width:768px){
     header{padding:9px 12px;gap:4px;}
     header h1{font-size:16px;}
     header .sub, header .hint{font-size:10.5px;}
@@ -69,9 +69,6 @@
     .legend{max-width:min(240px,84vw);font-size:12px;}
     .legend-body{max-height:62vh;}
     .leaflet-top.leaflet-right{top:8px;right:8px;}
-  }
-  @media (max-width:480px){
-    .legend{max-width:min(220px,88vw);}
   }
 </style>
 </head>
@@ -101,399 +98,395 @@
 </div>
 
 <script>
-// ---------------------------------------------------------------
-// CATEGORY DEFINITIONS
-// ---------------------------------------------------------------
-const CATEGORIES = {
-  piracy:    { label: "Piracy & Armed Robbery",                 color: "#e63946" },
-  warrisk:   { label: "War Risk / Conflict at Sea",              color: "#6a040f" },
-  greyzone:  { label: "Grey-Zone Coercion & Territorial Disputes", color: "#9d4edd" },
-  navalops:  { label: "Naval Diplomacy & Exercises",             color: "#3a86ff" },
-  infra:     { label: "Ports, Shipbuilding & Infrastructure",    color: "#2a9d8f" },
-  regulatory:{ label: "Regulatory / IMO / Legal",                color: "#6c757d" },
-  weather:   { label: "Weather & Environmental Hazard",          color: "#f4a300" },
-  fisheries: { label: "Fisheries & Bilateral Disputes",          color: "#fb8500" },
-  undersea:  { label: "Undersea Infrastructure & Hybrid Threats",color: "#d00070" },
-  incidents: { label: "Maritime Incidents & SAR",                color: "#0077b6" },
-  chokepoint:{ label: "Chokepoints & Trade Flow",                color: "#e07a5f" },
-  crime:     { label: "Transnational Crime & Interdiction",      color: "#588157" },
-  sanctions: { label: "Sanctions Evasion & Illicit Shipping",    color: "#495057" },
+// ===================== CONSTANTS =====================
+var GENERATED_ON = "August 10, 2026";
+var GENERATED_ISO = "2026-08-10";
+
+// ===================== CATEGORIES =====================
+var CATEGORIES = {
+  piracy:      { label: "Piracy & Armed Robbery",                    color: "#e63946" },
+  warrisk:     { label: "War Risk / Conflict at Sea",                 color: "#9d0208" },
+  greyzone:    { label: "Grey-Zone Coercion & Territorial Disputes",  color: "#f77f00" },
+  navaldiplo:  { label: "Naval Diplomacy & Exercises",                color: "#457b9d" },
+  ports:       { label: "Ports, Shipbuilding & Infrastructure",       color: "#2a9d8f" },
+  regulatory:  { label: "Regulatory / IMO / Legal",                   color: "#6d597a" },
+  weather:     { label: "Weather & Environmental Hazard",             color: "#219ebc" },
+  fisheries:   { label: "Fisheries & Bilateral Disputes",             color: "#8ac926" },
+  undersea:    { label: "Undersea Infrastructure & Hybrid Threats",   color: "#5f0f40" },
+  incidents:   { label: "Maritime Incidents & SAR",                   color: "#ffb703" },
+  chokepoints: { label: "Chokepoints & Trade Flow",                   color: "#3a86ff" },
+  crime:       { label: "Transnational Crime & Interdiction",         color: "#6a4c93" },
+  sanctions:   { label: "Sanctions Evasion & Illicit Shipping",       color: "#495057" }
 };
 
-const GENERATED_ON = "2 August 2026";
-const GENERATED_ISO = "2026-08-02";
-
-// ---------------------------------------------------------------
-// DATA — points and areas. type: "point" | "area"
-// dateISO   = representative report/update date, used by the time filter
-// standing  = true for persistent risk zones/advisories (not single events);
-//             these can optionally always be shown regardless of period filter
-// ---------------------------------------------------------------
-const ITEMS = [
-  // ---------- PIRACY & ARMED ROBBERY ----------
-  { cat:"piracy", type:"point", coords:[12.9,49.0], title:"MT Asana hijacked off Yemen", date:"17–18 Jul 2026", dateISO:"2026-07-17", standing:false,
-    brief:"Tanzanian-flagged chemical tanker MT Asana, 20 crew aboard, seized by armed pirates off Mukalla and taken toward Puntland.",
-    detail:"Seven armed Somali pirates boarded MT Asana after it departed the Yemeni port of Mukalla and forced it into Somali territorial waters near Puntland's Bari region, where it was later held off Caluula. It is the second Gulf of Aden hijacking since May (after MT Eureka).",
-    sources:[["Marine Insight","https://www.marineinsight.com/somali-pirates-move-hijacked-tanker-mt-asana-towards-puntland-after-seizing-it-off-yemen/"]] },
-  { cat:"piracy", type:"area", coords:[12.5,48.5], radius:480000, title:"Gulf of Aden / Somali Basin — SUBSTANTIAL threat", date:"Ongoing, Jul 2026", dateISO:"2026-07-31", standing:true,
-    brief:"JMIC rates the piracy threat level 'SUBSTANTIAL' after 7 incidents since 11 June; 44 seafarers remain held across 3 vessels.",
-    detail:"The resurgence is linked to naval assets from Europe, the US and South Korea being partially redirected toward the Strait of Hormuz confrontation, thinning anti-piracy patrol coverage that had suppressed Somali piracy for a decade. The IMB attributes 94% of global crew hostage-taking in H1 2026 to Somali pirates.",
-    sources:[["Castor Vali","https://www.castorvali.com/news/renewed-piracy-threat-somali-basin-gulf-of-aden-2026/"]] },
-  { cat:"piracy", type:"point", coords:[1.55,103.05], title:"Armed robbery aboard tanker, Malacca Strait", date:"5 Jul 2026", dateISO:"2026-07-05", standing:false,
-    brief:"Tanker boarded while transiting the Malacca Strait toward Singapore; crew unharmed, ship stores stolen.",
-    detail:"Reported to ReCAAP ISC. Brings 2026 incidents in the Straits of Malacca and Singapore to 22 — still a 74% drop versus the same period in 2025.",
-    sources:[["SAFETY4SEA","https://safety4sea.com/recaap-isc-two-incidents-of-armed-robbery-7-14-july/"]] },
-  { cat:"piracy", type:"area", coords:[2.0,103.3], radius:230000, title:"Straits of Malacca & Singapore — 7-year low", date:"H1 2026", dateISO:"2026-06-30", standing:true,
-    brief:"Asia-wide incidents fell to a 7-year low: 35 regionally, 21 in the Malacca/Singapore Straits, down 74% year-on-year.",
-    detail:"ReCAAP ISC credits sustained Singapore Strait patrols. Still Asia's principal piracy hotspot despite the decline, and the busiest strait in the dataset for merchant traffic.",
-    sources:[["Splash247","https://splash247.com/singapore-strait-crackdown-sends-asian-sea-robberies-to-seven-year-low/"]] },
-  { cat:"piracy", type:"area", coords:[3.8,5.5], radius:420000, title:"Gulf of Guinea — piracy / KFR advisory", date:"Standing, Jul 2026", dateISO:"2026-07-31", standing:true,
-    brief:"MDAT-GoG (France/UK) maintains a standing advisory for piracy, armed robbery and kidnap-for-ransom off Benin, Nigeria, Cameroon and neighbours.",
-    detail:"KFR groups typically target senior officers and foreign crew, holding them ashore in the Niger Delta. No major new incident logged in July, continuing 2026's broader decline in West African piracy.",
-    sources:[["MARAD 2026-009","https://www.maritime.dot.gov/msci/2026-009-gulf-guinea-piracyarmed-robberykidnapping-ransom"]] },
-
-  // ---------- WAR RISK / CONFLICT AT SEA ----------
-  { cat:"warrisk", type:"area", coords:[26.6,56.3], radius:230000, title:"Strait of Hormuz — effectively closed", date:"Ongoing since 28 Feb 2026; sharply escalated Jul", dateISO:"2026-07-23", standing:true,
-    brief:"At least 9 ships attacked since 6 July; traffic collapsed from ~88/day to ~10/day by 23 July.",
-    detail:"Iran has fired missiles at commercial vessels, boarded ships and reportedly laid mines. One seafarer was killed and three injured aboard tanker Al Bahyah off Oman. The US retaliated, hitting IRGC air-defence/radar sites and over 60 small boats. By late July, transits via the US-brokered Oman-hugging lane had effectively halted.",
-    sources:[["CNBC","https://www.cnbc.com/2026/07/17/iran-war-oil-tanker-strait-hormuz-traffic-attacks-trump.html"],["NPR","https://www.npr.org/2026/07/18/nx-s1-5898916/us-iran-escalate-strikes"]] },
-  { cat:"warrisk", type:"area", coords:[25.5,52.0], radius:520000, title:"JWC Listed Area — Persian/Arabian Gulf & Gulf of Oman", date:"Extended Mar 2026", dateISO:"2026-03-01", standing:true,
-    brief:"Lloyd's Joint War Committee added Bahrain, Djibouti, Kuwait, Oman and Qatar, and extended coverage across the Gulf, Gulf of Oman, northern Indian Ocean, Gulf of Aden and southern Red Sea.",
-    detail:"War-risk listing raises insurance costs for vessels transiting the zone; US-, UK- and Israeli-linked vessels reportedly pay roughly triple the standard war-risk premium for Middle East cover.",
-    sources:[["Lloyd's List","https://www.lloydslist.com/LL1156502/US-UK-and-Israeli-ships-charged-three-times-more-than-others-for-Middle-East-war-cover"]] },
-  { cat:"warrisk", type:"area", coords:[13.3,43.2], radius:300000, title:"Southern Red Sea & Bab-el-Mandeb — elevated Houthi threat", date:"Jul 2026", dateISO:"2026-07-31", standing:true,
-    brief:"No confirmed Houthi attacks on merchant ships in the last 48 hours of July, but UKMTO still rates the area highly volatile.",
-    detail:"UKMTO warns of sustained GNSS/AIS/VHF interference and unverified VHF 'closure' claims; commercial traffic continues to transit steadily through Bab-el-Mandeb, but the Houthis retain drone, naval-drone and missile strike capability and threatened on 8 June to resume targeting Israeli-linked ships.",
-    sources:[["UKMTO JMIC Advisory","https://www.ukmto.org/-/media/ukmto/products/update-071-jmic-advisory-note-14-july.pdf"]] },
-  { cat:"warrisk", type:"point", coords:[24.86,67.01], title:"Pakistan removed from JWC war-risk list", date:"30 Jul 2026", dateISO:"2026-07-30", standing:false,
-    brief:"Lloyd's Joint War Committee delisted Pakistan's territorial waters — a rare de-escalation this month.",
-    detail:"The removal lowers war-risk insurance costs for vessels calling at Karachi, Port Qasim and Gwadar, and is being read as a maritime-insurance vote of confidence distinct from the wider Gulf trajectory.",
-    sources:[["Pakistan Today","https://www.pakistantoday.com.pk/2026/07/30/pakistan-removed-from-lloyds-war-risk-list-for-territorial-waters"]] },
-  { cat:"warrisk", type:"point", coords:[46.48,30.73], title:"Black Sea grain corridor shipping fully suspended", date:"Late Jul 2026", dateISO:"2026-07-27", standing:false,
-    brief:"For the first time since 2023, shipping has stopped entirely on Ukraine's Black Sea corridor after a month of escalated Russian strikes.",
-    detail:"Odesa prosecutors say Russia struck 28 commercial ships in a month, killing 21 seafarers and port workers; a civilian grain ship sank near Odesa on 26 July after a 19 July missile strike. Maersk and Hapag-Lloyd suspended Chornomorsk calls, and Ukraine has lost roughly a third of its Black Sea grain export capacity — a direct hit to global wheat supply, given Russia and Ukraine's combined 30%+ share of world exports.",
-    sources:[["Maritime Executive","https://maritime-executive.com/article/shipping-suspended-on-ukraine-s-black-sea-corridor-due-to-increased-attacks"],["Kyiv Independent","https://kyivindependent.com/civilian-grain-ship-sinks-in-black-sea-following-russian-strike/"]] },
-
-  // ---------- GREY-ZONE COERCION ----------
-  { cat:"greyzone", type:"area", coords:[24.3,122.6], radius:180000, title:"Waters east of Taiwan — new CCG patrols", date:"Jun–Jul 2026", dateISO:"2026-07-29", standing:true,
-    brief:"China Coast Guard and Maritime Safety Administration ran repeated patrols and 'special law-enforcement operations' east of Taiwan for the first time in quick succession.",
-    detail:"Analysts (Ray Powell, Stanford SeaLight) describe a 'boa constrictor' strategy squeezing Taiwan's access one coil at a time — a durable grey-zone shift rather than a one-off exercise.",
-    sources:[["Al Jazeera","https://www.aljazeera.com/news/2026/7/29/china-puts-squeeze-on-taiwan-with-new-maritime-patrols"]] },
-  { cat:"greyzone", type:"point", coords:[20.7,116.83], title:"CCG activity near Dongsha (Pratas) Island", date:"2026, recurring", dateISO:"2026-07-01", standing:true,
-    brief:"Chinese Coast Guard vessels have entered Dongsha's restricted waters on six occasions in 2026.",
-    detail:"Dongsha, held by Taiwan, sits at the northern mouth of the South China Sea. Repeated incursions test Taiwan's administrative control without crossing into overt conflict.",
-    sources:[["GlobalSecurity.org","https://www.globalsecurity.org/wmd/library/news/china/2026/07/china-260706-cna01.htm"]] },
-  { cat:"greyzone", type:"point", coords:[6.80,-58.16], title:"Venezuela–Guyana Essequibo maritime dispute", date:"2026, ongoing", dateISO:"2026-03-13", standing:true,
-    brief:"Venezuela continues to press claims over Guyana's oil-rich offshore waters, months after a Venezuelan naval incursion into Guyana's EEZ.",
-    detail:"Guyana, now one of the world's fastest-growing oil producers, has drawn deeper US and Brazilian engagement in the dispute. Localised maritime incidents or miscalculation near offshore energy blocks remain a live operational risk, even though full-scale conflict is considered unlikely.",
-    sources:[["CSIS","https://www.csis.org/analysis/what-significance-venezuelas-naval-incursion-guyana"]] },
-  { cat:"greyzone", type:"point", coords:[25.74,123.48], title:"Japan–China coast guard face-off, Senkaku Islands", date:"7 Jul 2026", dateISO:"2026-07-07", standing:false,
-    brief:"Japanese and Chinese coast guard vessels confronted each other near the disputed islands; each side accused the other of intrusion.",
-    detail:"Japan said it expelled two Chinese vessels approaching a Japanese fishing boat; China said it warned off the Japanese vessel Zuihou Maru. Follows a similar 10 June confrontation amid wider regional tension over Taiwan.",
-    sources:[["The Japan Times","https://www.japantimes.co.jp/news/2026/07/07/japan/japan-china-ships-expel-near-senkaku/"]] },
-
-  // ---------- NAVAL DIPLOMACY & EXERCISES ----------
-  { cat:"navalops", type:"point", coords:[36.07,120.38], title:"China–Russia 'Joint Sea-2026' exercise, Qingdao", date:"6–13 Jul 2026", dateISO:"2026-07-06", standing:false,
-    brief:"Combined naval exercise off Qingdao, followed by a joint maritime patrol in the Pacific.",
-    detail:"Part of a pattern of deepening PRC–Russia naval cooperation; occurred alongside a PLA SLBM test in the South Pacific on 6 July demonstrating second-strike reach.",
-    sources:[["AEI China & Taiwan Update","https://www.aei.org/articles/china-taiwan-update-july-10-2026/"]] },
-  { cat:"navalops", type:"point", coords:[-15.0,-170.0], title:"PLA SLBM test, South Pacific", date:"6 Jul 2026", dateISO:"2026-07-06", standing:false,
-    brief:"PLA tested a submarine-launched ballistic missile in the South Pacific, underscoring second-strike capability.",
-    detail:"Seen by analysts as a demonstration of China's ability to strike distant targets from home waters, timed alongside the Joint Sea-2026 exercise with Russia.",
-    sources:[["AEI China & Taiwan Update","https://www.aei.org/articles/china-taiwan-update-july-10-2026/"]] },
-  { cat:"navalops", type:"point", coords:[9.93,76.27], title:"Operation Southern Readiness 26-2, Kochi", date:"20–23 Jul 2026", dateISO:"2026-07-20", standing:false,
-    brief:"Indian Navy's Southern Naval Command hosted Combined Maritime Forces partners under CTF-154 for anti-piracy training.",
-    detail:"A direct Indian contribution to the collective anti-piracy capacity that the Gulf of Aden badly needed this month, given the concurrent Somali piracy resurgence.",
-    sources:[["The Week","https://www.theweek.in/news/defence/2026/07/16/indian-navy-to-showcase-its-modern-training-infrastructure-as-global-naval-forces-converge-in-kochi.html"]] },
-  { cat:"navalops", type:"point", coords:[8.52,76.94], title:"India–Kerala Joint Coastal Security Review", date:"23 Jul 2026", dateISO:"2026-07-23", standing:false,
-    brief:"Vice Admiral Sameer Saxena and Kerala Chief Secretary Bishwanath Sinha co-chaired the annual review in Thiruvananthapuram.",
-    detail:"Navy, Coast Guard, state police, fisheries, ports, customs and intelligence agencies all took part — the primary annual mechanism reconciling state and Navy coastal-security posture.",
-    sources:[["Channel iAM","https://en.channeliam.com/2026/07/24/indian-navy-kerala-joint-coastal-security-review-meeting/"]] },
-  { cat:"navalops", type:"point", coords:[19.07,72.87], title:"Korean Coast Guard visit, Delhi & Mumbai", date:"20–24 Jul 2026", dateISO:"2026-07-20", standing:false,
-    brief:"KCG Commissioner General Kim Yong Jin met ICG DG Paramesh Sivamani, then toured Mazagon Dock.",
-    detail:"Part of India's steady widening of coast guard-to-coast guard relationships beyond its immediate neighbourhood.",
-    sources:[["Vivekananda International Foundation","https://www.vifindia.org/2026/july/10/National-Security-Defence-Maritime-Affairs"]] },
-  { cat:"navalops", type:"point", coords:[8.57,81.23], title:"Sri Lanka Naval & Maritime Academy commissioning", date:"11 Jul 2026", dateISO:"2026-07-11", standing:false,
-    brief:"34 midshipmen commissioned at Trincomalee, alongside a new Navy Commander (1 Jul) and a fourth RIMPAC 2026 appearance by SLN Marines.",
-    detail:"A routine leadership and training month for the Sri Lanka Navy, run in parallel with a 28-arrest crackdown on illegal fishing (1–15 Jul).",
-    sources:[["Sri Lanka Navy","https://news.navy.lk/event-news/2026/july/vice-admiral-damian-fernando-assumes-office-as-27th-commander-of-the-sri-lanka-navy.html"]] },
-
-  // ---------- PORTS, SHIPBUILDING & INFRASTRUCTURE ----------
-  { cat:"infra", type:"point", coords:[22.47,69.70], title:"NSHIP-Gujarat & Vadinar ship-repair facility approved", date:"17 Jul 2026", dateISO:"2026-07-17", standing:false,
-    brief:"MoPSW cleared a 2,000-acre shipbuilding park (1.2–1.5M GT vessels) and a ₹1,570 cr CSL–Deendayal Port Authority repair yard.",
-    detail:"Sits within the September 2025 ₹69,725 crore maritime package and the Maritime Amrit Kaal Vision 2047 target of a top-five global shipbuilding ranking.",
-    sources:[["The Week","https://www.theweek.in/news/maritime/2026/07/17/gujarat-to-host-2-major-maritime-projects-under-key-shipping-ministry-scheme-all-you-need-to-know.html"]] },
-  { cat:"infra", type:"point", coords:[21.64,69.60], title:"ICG Porbandar jetty extension inaugurated", date:"2 Jul 2026", dateISO:"2026-07-02", standing:false,
-    brief:"Reinforces Indian Coast Guard operational infrastructure along Gujarat's strategically important north-west coast.",
-    detail:"Inaugurated by IG T. Sashi Kumar, Commander Coast Guard Region (North-West).",
-    sources:[["DeshGujarat","https://deshgujarat.com/2026/07/03/indian-coast-guard-expands-porbandar-jetty-boosts-maritime-security-along-gujarat-coast/"]] },
-
-  // ---------- REGULATORY / IMO / LEGAL ----------
-  { cat:"regulatory", type:"point", coords:[51.50,-0.12], title:"IMO Council 137th session", date:"6–10 Jul 2026", dateISO:"2026-07-06", standing:false,
-    brief:"Adopted a resolution (30 co-sponsors incl. Indonesia, Malaysia) reaffirming UNCLOS navigational rights through international straits.",
-    detail:"A pointed, if unnamed, response to the Hormuz blockade and coercive coast-guard activity elsewhere. The Council also progressed a polar-fuels proposal targeting Arctic black-carbon emissions.",
-    sources:[["SAFETY4SEA","https://safety4sea.com/imo-council-adopts-resolution-to-protect-vital-shipping-lanes-amid-rising-security-concerns/"]] },
-  { cat:"regulatory", type:"area", coords:[78,20], radius:900000, title:"Arctic — IMO polar-fuels proposal", date:"Jul 2026, under review", dateISO:"2026-07-01", standing:true,
-    brief:"Denmark, Germany, France and the Solomon Islands co-sponsor a fuel standard targeting Arctic black-carbon emissions.",
-    detail:"Would require cleaner distillate fuels (e.g. marine gas oil) or zero-carbon alternatives. Arctic shipping black-carbon emissions roughly doubled between 2015 and 2021.",
-    sources:[["Cyprus Shipping News","https://cyprusshippingnews.com/2026/07/01/how-an-imo-polar-fuels-rule-will-curb-the-arctics-shippings-black-carbon-emissions/"]] },
-
-  // ---------- WEATHER & ENVIRONMENTAL HAZARD ----------
-  { cat:"weather", type:"point", coords:[21.62,87.75], title:"Deep depression crosses Odisha–West Bengal coast", date:"27 Jul 2026", dateISO:"2026-07-27", standing:false,
-    brief:"Red alert issued for six Odisha districts; fishermen advised off the water for four days.",
-    detail:"Intensified from a low-pressure area over the northwest Bay of Bengal and made landfall near Digha, bringing extremely heavy rainfall and flash-flood risk.",
-    sources:[["IMD via X","https://x.com/Indiametdept/status/2081776067547902323?lang=en"]] },
-
-  // ---------- FISHERIES & BILATERAL DISPUTES ----------
-  { cat:"fisheries", type:"point", coords:[9.30,79.70], title:"9 Rameswaram fishermen arrested, Palk Strait", date:"23 Jul 2026", dateISO:"2026-07-23", standing:false,
-    brief:"Sri Lankan Navy detained fishermen and seized their trawler for crossing the IMBL near Talaimannar.",
-    detail:"Follows reports of 50+ Indian trawlers fishing in Sri Lankan waters off Iranativu. The single most persistent irritant in India–Sri Lanka maritime relations, having produced hundreds of arrests since mid-2024.",
-    sources:[["Lanka Newspapers","https://www.lankanewspapers.com/2026/07/23/sri-lankan-navy-detains-nine-indian-fishermen-amid-renewed-maritime-tensions"]] },
-  { cat:"fisheries", type:"point", coords:[21.5,90.0], title:"Bangladesh fishing fleet cautioned, North Bay", date:"13 Jul 2026", dateISO:"2026-07-13", standing:false,
-    brief:"All fishing boats and trawlers advised to stay close to shore amid rough sea conditions.",
-    detail:"A routine but recurring constraint on a fleet already navigating a difficult season.",
-    sources:[["The Business Standard (BD)","https://www.tbsnews.net/tags/maritime"]] },
-  { cat:"fisheries", type:"point", coords:[22.30,69.05], title:"Gujarat expands diesel relief for fishing fleet", date:"8 Jul 2026", dateISO:"2026-07-08", standing:false,
-    brief:"State cabinet removed the 20-metre boat-length restriction on its Diesel VAT Relief Scheme.",
-    detail:"Extends relief of up to ₹15/litre to more than 18,000 registered mechanised boats.",
-    sources:[["The News Mill","https://thenewsmill.com/2026/07/gujarat-removes-20-metre-limit-for-fishing-boat-diesel-vat-relief/"]] },
-  { cat:"fisheries", type:"point", coords:[20.26,86.67], title:"National High Seas Fishing Authorisation Programme launched", date:"9 Jul 2026", dateISO:"2026-07-09", standing:false,
-    brief:"Vice President launched the programme and a deep-sea fisheries mission at Paradip, Odisha.",
-    detail:"Distributed Letters of Authorisation to beneficiaries from Odisha, Andhra Pradesh and other coastal states; aims to simplify licensing while tightening monitoring.",
-    sources:[["Organiser","https://organiser.org/2026/07/09/369183/bharat/odisha-vice-president-launches-national-high-seas-fishing-authorisation-programme-unveils-deep-sea-fisheries-mission/"]] },
-  { cat:"fisheries", type:"point", coords:[11.67,92.75], title:"Andaman & Nicobar fishermen vigilance drive", date:"Jul 2026", dateISO:"2026-07-15", standing:false,
-    brief:"A&N Police ran Fishermen Watch Group meetings with the Coast Guard, Fisheries and Forest Departments.",
-    detail:"Focused on dinghy registration and safety-equipment compliance — maintaining the human-intelligence layer of coastal security in a theatre where fishing craft double as first-line maritime domain awareness.",
-    sources:[["Nicobar Times","https://nicobartimes.com/local-news/an-police-conducts-fishermen-watch-group-meetings-across-islands-to-strengthen-coastal-vigilance/"]] },
-  { cat:"fisheries", type:"point", coords:[-10.5,142.3], title:"Illegal foreign fishing crackdown, Torres Strait / Arafura Sea", date:"2026, ongoing", dateISO:"2026-02-11", standing:true,
-    brief:"Operation BROADSTAFF and the joint Australia–Indonesia Operation JAWLINE ARAFURA continue intercepting illegal foreign fishing vessels.",
-    detail:"18 foreign fishing vessels intercepted in the region since the start of 2026, with catches including sea cucumber and salt. Community and Traditional Owner leaders report a rising number of incidents, including fishermen allegedly brandishing firearms when challenged.",
-    sources:[["Baird Maritime","https://www.bairdmaritime.com/fishing/regulation-enforcement/suspected-illegal-foreign-fishing-vessel-apprehended-in-torres-strait-off-australia"]] },
-
-  // ---------- UNDERSEA INFRASTRUCTURE & HYBRID THREATS ----------
-  { cat:"undersea", type:"point", coords:[59.90,25.50], title:"Gulf of Finland cable incident investigation", date:"From 31 Dec 2025, ongoing", dateISO:"2025-12-31", standing:true,
-    brief:"Finnish authorities' probe into the Elisa cable disruption and the detained vessel Fitburg continues to inform 2026 policy responses.",
-    detail:"The cargo vessel Fitburg was boarded on suspicion of dragging its anchor across a Helsinki–Estonia telecoms cable while en route from Russia to Israel — a case cited repeatedly through 2026 in Western undersea-infrastructure risk assessments.",
-    sources:[["Bulletin of the Atomic Scientists","https://thebulletin.org/2026/02/seabed-zero-baltic-sabotage-and-the-global-risks-to-undersea-infrastructure/"]] },
-  { cat:"undersea", type:"point", coords:[56.30,21.00], title:"Lithuania–Latvia subsea cable damaged", date:"Jan 2026", dateISO:"2026-01-15", standing:false,
-    brief:"A telecoms cable linking Sventoji (Lithuania) and Liepaja (Latvia), roughly 65km, was damaged.",
-    detail:"One of several Baltic Sea cable incidents since late 2025 that have kept the region on heightened alert for suspected sabotage.",
-    sources:[["gCaptain timeline","https://gcaptain.com/timeline-of-suspected-underwater-sabotage-in-baltic-sea/"]] },
-  { cat:"undersea", type:"area", coords:[54.65,19.90], radius:120000, title:"Kaliningrad — GPS jamming hotspot", date:"Persistent through 2026", dateISO:"2026-07-01", standing:true,
-    brief:"Researchers traced near-daily GPS disruptions across the Baltic to Russian electronic-warfare units based near Kaliningrad.",
-    detail:"Viewed as deliberate hybrid-warfare activity undermining civil navigation; a standing risk factor for vessels transiting the Baltic approaches.",
-    sources:[["Maritime Cybersecurity Netherlands","https://maritimecybersecurity.nl/incident/GEOo905zPx"]] },
-  { cat:"undersea", type:"point", coords:[58.0,20.5], title:"NATO expands Baltic Sentry mission", date:"Jul 2026", dateISO:"2026-07-16", standing:true,
-    brief:"NATO confirmed Baltic Sentry will grow to include member states from outside the Baltic/Nordic region.",
-    detail:"Active since January 2025 with frigates, patrol aircraft and naval drones protecting undersea cables and pipelines. NATO commanders say sabotage incidents have decreased since the mission began, but sustaining full-capacity presence long-term remains a challenge.",
-    sources:[["Caliber.Az","https://caliber.az/en/post/nato-expands-baltic-sentry-mission-with-new-member-states"]] },
-
-  // ---------- MARITIME INCIDENTS & SAR ----------
-  { cat:"incidents", type:"point", coords:[18.95,72.75], title:"Sailor airlifted from MT Desh Shakti", date:"4 Jul 2026", dateISO:"2026-07-04", standing:false,
-    brief:"Indian Coast Guard and Navy jointly rescued a sailor with a serious eye injury off Mumbai.",
-    detail:"The crude oil tanker's crew member was airlifted by Navy helicopter despite adverse weather.",
-    sources:[["TheNewsMill","https://thenewsmill.com/2026/07/indian-coast-guard-rescues-sailor-with-eye-injury-from-mt-desh-shakti-off-mumbai-coast/"]] },
-  { cat:"incidents", type:"point", coords:[19.20,72.70], title:"Three tankers secured off Mumbai/Manori", date:"5 Jul 2026", dateISO:"2026-07-05", standing:false,
-    brief:"ICG secured MT Al Jafzia, MT Asphalt Star and MT Stellar Ruby after they dragged anchor in severe weather; one reportedly grounded.",
-    detail:"DG Shipping alerted the ICG after the vessels drifted from designated holding areas toward the Manori coast; regional assets were deployed to assess and secure them.",
-    sources:[["SAFETY4SEA","https://safety4sea.com/indian-coast-guard-secures-drifting-tankers-off-mumbai-coast/"]] },
-  { cat:"incidents", type:"point", coords:[15.0,88.0], title:"ICG recovers drifted scientific buoy", date:"5 Jul 2026", dateISO:"2026-07-05", standing:false,
-    brief:"A scientific buoy that had drifted over 150km in the Bay of Bengal was recovered, preserving vital ocean data.",
-    detail:"Routine but valuable ICG support to India's ocean-observation network.",
-    sources:[["TheNewsMill","https://thenewsmill.com/2026/07/indian-coast-guard-recovers-adrift-scientific-buoy-in-bay-of-bengal/"]] },
-  { cat:"incidents", type:"point", coords:[23.5,59.0], title:"Fire aboard MT Marivex, south of Hormuz", date:"Jul 2026", dateISO:"2026-07-15", standing:false,
-    brief:"24 Indian seafarers rescued after a fire broke out aboard MT Marivex south of the Strait of Hormuz.",
-    detail:"MRCC Mumbai coordinated closely with Omani authorities; all crew reported safe — a reminder that Indian-crewed ships are directly exposed to the Hormuz war.",
-    sources:[["The Week","https://www.theweek.in/news/defence/2026/07/16/indian-navy-to-showcase-its-modern-training-infrastructure-as-global-naval-forces-converge-in-kochi.html"]] },
-  { cat:"incidents", type:"area", coords:[35.5,15.5], radius:350000, title:"Central Mediterranean migrant crossings remain deadly", date:"2026, last major spike Apr", dateISO:"2026-04-07", standing:true,
-    brief:"Mediterranean migrant deaths approached 1,000 for the year by early April 2026 — among the worst tolls in recent years.",
-    detail:"UN agencies logged repeated mass-casualty shipwrecks in the central Mediterranean through the first third of 2026; humanitarian NGOs continue pressing European states for expanded state-led rescue capacity. Included here as a standing SAR burden rather than a single July event.",
-    sources:[["Al Jazeera","https://www.aljazeera.com/news/2026/4/7/mediterranean-migrant-deaths-mounting-towards-1000-in-2026-un"]] },
-
-  // ---------- CHOKEPOINTS & TRADE FLOW ----------
-  { cat:"chokepoint", type:"point", coords:[9.08,-79.68], title:"Panama Canal tightens transit restrictions", date:"25 Jul 2026, ongoing", dateISO:"2026-07-25", standing:true,
-    brief:"ACP cut daily crossings from 36 to 34 and paused slot auctions amid a forecast 91% chance of a strong El Niño.",
-    detail:"Draft reductions have applied since June with further cuts scheduled for August; major carriers have already added roughly US$100/TEU surcharges. A proactive echo of the severe 2023–24 drought crisis, this time triggered pre-emptively by forecast rather than an already-depleted reservoir.",
-    sources:[["gCaptain","https://gcaptain.com/panama-canal-extends-transit-restrictions-caused-by-drought/"],["S&P Global","https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/07/panama-canal-imposes-crossing-restrictions"]] },
-
-  // ---------- TRANSNATIONAL CRIME & INTERDICTION ----------
-  { cat:"crime", type:"point", coords:[21.0,-73.3], title:"USCG interdiction off Great Inagua, Bahamas", date:"25 Jul 2026", dateISO:"2026-07-25", standing:false,
-    brief:"USCGC Charles Sexton, with the Royal Bahamas Defence Force, seized roughly 2,380 lb (US$2.8m) of marijuana from a suspect vessel.",
-    detail:"One of a steady cadence of US Coast Guard interdictions in the Caribbean this year, part of an expanded Pentagon counternarcotics posture and closer coordination with regional partner navies and coast guards.",
-    sources:[["Baird Maritime","https://www.bairdmaritime.com/security/incidents/piracy/us-coast-guard-partners-seize-nearly-3m-in-marijuana-in-caribbean"]] },
-
-  // ---------- SANCTIONS EVASION & ILLICIT SHIPPING ----------
-  { cat:"sanctions", type:"area", coords:[39.3,128.5], radius:260000, title:"North Korea's sanctioned fleet grows more active", date:"Jul 2026", dateISO:"2026-07-15", standing:true,
-    brief:"Sanctioned DPRK vessels are making more port calls and suspected ship-to-ship oil transfers as UN monitoring fades.",
-    detail:"Lloyd's List reports a more entrenched sanctions-evasion network exploiting fraudulent ship registries — 91% of vessels tied to 18 fraudulent registries flagged by the IMO were already under sanction. Vessels routinely disable AIS, falsify documents and rename to evade detection, a standing compliance risk for charterers and flag administrations.",
-    sources:[["Lloyd's List","https://www.lloydslist.com/LL1157700/North-Korea%e2%80%99s-sanctioned-fleet-more-active-after-UN-watchdog-goes-dark"]] },
+// ===================== ITEMS =====================
+// NOTE: This refresh could not recover the prior week's accumulated 43-item
+// baseline (see chat message for details). This ITEMS array therefore
+// contains only newly researched, independently sourced items from the
+// 3-10 August 2026 reporting window. Future weekly runs will accumulate
+// on top of this array.
+var ITEMS = [
+  {
+    cat: "warrisk", type: "zone", coords: [26.30, 56.30], radius: 150000,
+    title: "Strait of Hormuz crisis: attacks continue as toll-window nears expiry",
+    date: "August 8, 2026", dateISO: "2026-08-08", standing: true,
+    brief: "The bulk carrier Minoan Pioneer was struck by an unidentified projectile off the Musandam Peninsula on Aug 3, and ADNOC said one of its vessels was hit by a missile in the strait around Aug 8, with open transits through the southern corridor remaining subdued.",
+    detail: "Iran's Supreme National Security Council has tied any reopening to a US withdrawal of naval forces, sanctions relief and war reparations, and lead negotiator Ghalibaf has said the strait \"will not return to pre-war conditions.\" Iran is also moving to charge a toll for transits once a 60-day toll-free window expires around Aug 17, while barring US- and Israeli-linked vessels outright. Talks between Iran and Oman on safe shipping corridors continued this week without a concluded deal. ADNOC has reported 15 of its vessels attacked since the war began, with one crew fatality and 20 injured.",
+    sources: [
+      { label: "UAE ship targeted by missile, tensions stay high — CNBC (Aug 8)", url: "https://www.cnbc.com/2026/08/08/uae-ship-targeted-missile-us-iran-tensions-stay-high.html" },
+      { label: "Iran sets conditions, toll on US/Israeli ships — NPR (Aug 6)", url: "https://www.npr.org/2026/08/06/nx-s1-5923623/iran-strait-hormuz-us-israel-ban" },
+      { label: "Iran-Oman talks, Trump signals optimism — CNN (Aug 8)", url: "https://www.cnn.com/2026/08/08/world/live-news/iran-war-trump" }
+    ]
+  },
+  {
+    cat: "warrisk", type: "point", coords: [13.32, 43.25],
+    title: "Indian-flagged vessel sunk off Al Mukha, Yemen; all 14 crew rescued",
+    date: "August 4, 2026", dateISO: "2026-08-04", standing: false,
+    brief: "UKMTO/JMIC reported a vessel struck by a projectile/uncrewed surface vessel roughly 9nm off Al Mukha in the southern Red Sea, catching fire and sinking; all 14 seafarers were brought safely to Al Mukha port.",
+    detail: "No group claimed responsibility, though Houthi forces have repeatedly threatened Red Sea shipping and declared a formal blockade of Saudi-linked vessels on July 20. JMIC's advisory update logged 80 confirmed maritime security incidents in the wider Red Sea/Gulf of Aden/Somali Basin/Arabian Sea theatre since March 1, 2026, with two new incidents since the prior report.",
+    sources: [
+      { label: "UKMTO/JMIC Advisory Update-080 (Aug 4 PDF)", url: "https://www.ukmto.org/-/media/ukmto/products/update-080-jmic-advisory-note-04-august.pdf" },
+      { label: "Unidentified projectile near tanker, southern Red Sea — Anadolu", url: "https://www.aa.com.tr/en/middle-east/unidentified-projectile-lands-near-tanker-in-southern-red-sea-ukmto/4009756" },
+      { label: "MSCI 2026-006 Houthi Attacks on Commercial Vessels — US MARAD", url: "https://www.maritime.dot.gov/msci/2026-006-red-sea-bab-el-mandeb-strait-gulf-aden-arabian-sea-and-somali-basin-houthi-attacks" }
+    ]
+  },
+  {
+    cat: "warrisk", type: "zone", coords: [44.72, 37.78], radius: 220000,
+    title: "Black Sea drone campaign intensifies; Turkey restricts approach traffic",
+    date: "August 6, 2026", dateISO: "2026-08-06", standing: true,
+    brief: "Russia and Ukraine traded a sharp rise in drone strikes on merchant shipping in the first week of August — including the Turkish-managed tanker Altura near the Bosporus, the German cargo ship EMIL, and Russian-flagged/linked vessels Nadezhda and Yanina — and Turkey has moved to restrict commercial traffic entering the Black Sea.",
+    detail: "Russia claimed strikes on shipping at Mykolaiv and in the open Black Sea on Aug 3-5; Ukraine said its drones sank the Russian-owned container ship Yanina near Novorossiysk. Dirty-tanker loadings from Russian Black Sea/Sea of Azov ports fell 62% in the final two weeks of July versus the prior four-week average (0.98m bpd vs 2.59m bpd), reflecting the campaign's effect on trade flow as well as risk.",
+    sources: [
+      { label: "Drone attacks slash Black Sea tanker loadings — Seatrade Maritime", url: "https://www.seatrade-maritime.com/security/drone-attacks-slash-black-sea-tanker-loadings" },
+      { label: "Russian drones attack German cargo ship EMIL — Euronews (Aug 6)", url: "https://www.euronews.com/my-europe/2026/08/06/russian-drones-attack-german-cargo-ship-emil-in-black-sea-media-reports" },
+      { label: "Tensions rise after tanker Altura hit near Bosporus — All India Radio", url: "https://www.newsonair.gov.in/tensions-in-black-sea-rise-sharply-after-turkish-managed-oil-tanker-altura-hit-by-drone-near-bosporus-strait" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "point", coords: [24.50, 119.60],
+    title: "PLA naval/air activity around Taiwan ticks up in early August",
+    date: "August 7, 2026", dateISO: "2026-08-07", standing: false,
+    brief: "Taiwan's MND logged 8 PLAN ships and 5 PLA aircraft sorties operating around the island in a single-day snapshot in early August, with 3 of the sorties crossing the Taiwan Strait median line.",
+    detail: "The activity follows a first half of 2026 in which large-scale PLA drills around Taiwan were notably absent, but China ran four \"joint combat readiness patrols\" in May 2026 — an unusually high tempo compared with prior years. Analysts also flag continued development of the Type 076 amphibious assault ship Sichuan, which may operate closer to a light carrier role than existing PLA amphibious vessels.",
+    sources: [
+      { label: "China & Taiwan Update, August 7, 2026 — AEI", url: "https://www.aei.org/commentary/china-taiwan-update-august-7-2026/" },
+      { label: "PLA activities in the waters and airspace around Taiwan — ROC MND via GlobalSecurity", url: "https://www.globalsecurity.org/wmd/library/news/taiwan/2026/taiwan-260802-roc-mnd01.htm" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "zone", coords: [25.75, 123.48], radius: 55000,
+    title: "China Coast Guard incursions near Senkaku Islands persist at elevated tempo",
+    date: "August 3, 2026", dateISO: "2026-08-03", standing: true,
+    brief: "Japan's Coast Guard intercepted and expelled Chinese Coast Guard vessels approaching a Japanese fishing boat near the Senkakus in early August, part of what analysts describe as a near-daily pressure campaign in the contiguous zone.",
+    detail: "FDD analysis published Aug 3 argues China's Senkaku incursion tempo — armed China Coast Guard vessels entering Japanese territorial waters and lingering in the contiguous zone — is running at record levels but drawing comparatively little international attention versus Taiwan Strait or South China Sea flashpoints.",
+    sources: [
+      { label: "China's Senkaku Incursions Are Flying under US Radar — FDD (Aug 3)", url: "https://www.fdd.org/analysis/2026/08/03/chinas-senkaku-incursions-are-flying-under-us-radar/" },
+      { label: "Coast guard ships from Japan and China face off near Senkakus — Japan Times", url: "https://www.japantimes.co.jp/news/2026/07/07/japan/japan-china-ships-expel-near-senkaku/" }
+    ]
+  },
+  {
+    cat: "weather", type: "point", coords: [20.50, 88.00],
+    title: "Low-pressure area over north Bay of Bengal; fishermen told to stay ashore",
+    date: "August 7, 2026", dateISO: "2026-08-07", standing: false,
+    brief: "IMD flagged a low-pressure area forming over coastal West Bengal and the adjoining northwest Bay of Bengal for Aug 7-8, with fishing fleets off West Bengal, Odisha and the north Bay advised not to venture out during the period.",
+    detail: "The system is part of the routine post-monsoon cyclonic build-up in the North Indian Ocean basin; it had not been named or classified as a depression at time of reporting, but coastal district authorities issued precautionary fishermen advisories.",
+    sources: [
+      { label: "Cyclone brewing in Bay of Bengal as post-monsoon storm season begins — Down To Earth", url: "https://www.downtoearth.org.in/natural-disasters/cyclone-brewing-in-bay-of-bengal-as-post-monsoon-storm-season-begins" },
+      { label: "IMD Fishermen Warnings (live)", url: "https://mausam.imd.gov.in/imd_latest/contents/index_fisherman.php" }
+    ]
+  },
+  {
+    cat: "fisheries", type: "zone", coords: [9.50, 79.50], radius: 45000,
+    title: "India flags fishermen safety concerns after fresh Sri Lanka Navy arrests",
+    date: "August 9, 2026", dateISO: "2026-08-09", standing: true,
+    brief: "India's External Affairs Minister raised fishermen-safety concerns on Aug 9 after further Sri Lankan Navy arrests of Tamil Nadu fishermen in the Palk Strait/Palk Bay for allegedly crossing the International Maritime Boundary Line.",
+    detail: "Sri Lanka has arrested more than 1,300 Indian fishermen since 2023, with roughly 30 still in custody as of late July 2026; nine more fishermen and their trawler were seized in a separate late-July incident. Both governments continue to acknowledge the need for a long-term bilateral solution to the recurring Palk Bay bottom-trawling dispute.",
+    sources: [
+      { label: "India's Foreign Minister flags fishermen safety after Sri Lanka arrests — Lanka Newspapers (Aug 9)", url: "https://www.lankanewspapers.com/2026/08/09/india-s-foreign-minister-flags-fishermen-safety-after-sri-lanka-arrests" },
+      { label: "12 more Indian fishermen arrested by Sri Lankan Navy — Deccan Herald", url: "https://www.deccanherald.com/india/12-more-indian-fishermen-arrested-for-alleged-poaching-by-sri-lankan-navy-3965413" }
+    ]
+  },
+  {
+    cat: "fisheries", type: "point", coords: [-6.20, 106.80],
+    title: "Indonesia's fisheries ministry reports 92 illegal-fishing vessels seized in 2026",
+    date: "August 5, 2026", dateISO: "2026-08-05", standing: false,
+    brief: "Indonesia's Ministry of Marine Affairs and Fisheries said it has apprehended 92 vessels for illegal fishing so far in 2026, avoiding an estimated Rp360 billion in state losses, as it continues to expand its patrol-vessel fleet.",
+    detail: "The ministry says larger illegal-fishing vessels are squeezing out small-scale fishers' catch, underlining the enforcement push. The figures follow a steady cadence of IUU enforcement actions this year against both domestic and foreign-flagged vessels operating in Indonesian waters.",
+    sources: [
+      { label: "Ministry seizes 92 illegal fishing vessels, saves Rp360 billion — Antara News", url: "https://en.antaranews.com/news/425547/ministry-seizes-92-illegal-fishing-vessels-saves-rp360-billion" }
+    ]
+  },
+  {
+    cat: "incidents", type: "point", coords: [-7.00, 114.30],
+    title: "Ferry Mutiara Sentosa II catches fire in Java Sea; 17 rescued by passing tanker",
+    date: "August 2, 2026", dateISO: "2026-08-02", standing: false,
+    brief: "The passenger ferry Mutiara Sentosa II caught fire off East Java near Sapudi Island; the Pertamina Patra Niaga tanker MT Transko Arafura diverted and rescued 17 people, working alongside Indonesia's Basarnas SAR agency.",
+    detail: "Indonesia's Deputy Transportation Minister confirmed all passengers were accounted for and that SAR operations concluded successfully. The incident is a reminder of the continuing safety gap in Indonesian domestic ferry operations, which has driven repeated fatal incidents in recent years.",
+    sources: [
+      { label: "Pertamina tanker rescues 17 victims of Mutiara Sentosa II ferry fire — Antara News", url: "https://en.antaranews.com/news/425301/pertamina-tanker-rescues-17-victims-of-mutiara-sentosa-ii-ferry-fire" },
+      { label: "Indonesia concludes SAR operations for Mutiara Sentosa II ferry fire — Antara News", url: "https://en.antaranews.com/amp/news/425549/indonesia-concludes-sar-operations-for-mutiara-sentosa-ii-ferry-fire" }
+    ]
+  },
+  {
+    cat: "chokepoints", type: "zone", coords: [9.08, -79.68], radius: 35000,
+    title: "Panama Canal tightens Neopanamax draft limit to 48.5ft as El Niño risk builds",
+    date: "August 5, 2026", dateISO: "2026-08-05", standing: true,
+    brief: "The Panama Canal Authority cut the maximum authorized Neopanamax draft to 48.5 feet effective Aug 15 (from 49.0 feet on Jul 24), with further step-downs already flagged for late August and early September as Gatun Lake levels fall.",
+    detail: "The ACP says water-saving measures mean the daily transit count itself is not being cut, only draft. Forecasters cited in trade press warn the developing El Niño has an 81% chance of reaching \"very strong\" status by late 2026, raising the risk of below-normal Central American rainfall and further restrictions through the dry season.",
+    sources: [
+      { label: "Panama Canal to Tighten Draft Limits Again as Water Levels Continue to Fall — gCaptain", url: "https://gcaptain.com/panama-canal-to-tighten-draft-limits-again-as-water-levels-continue-to-fall/" },
+      { label: "Draft restrictions tightened again in Panama Canal — SeaNews", url: "https://www.seanews.com.tr/article/draft-restrictions-tightened-again-in-panama-canal-msh87avj" }
+    ]
+  },
+  {
+    cat: "crime", type: "point", coords: [17.50, -102.00],
+    title: "Mexican Navy seizes over four metric tons of suspected cocaine",
+    date: "August 4, 2026", dateISO: "2026-08-04", standing: false,
+    brief: "The Mexican Navy interdicted a vessel carrying more than four metric tons of suspected cocaine in a Pacific-coast operation, run separately from the US Coast Guard's ongoing Operation Pacific Viper in the Eastern Pacific.",
+    detail: "US Coast Guard's Operation Pacific Viper, running since August 2025, passed 225,000 pounds of cocaine seized as of its June 2026 milestone update; roughly 80% of US-bound narcotics interdictions occur at sea, underscoring the scale of Eastern Pacific trafficking that both US and regional navies are contesting.",
+    sources: [
+      { label: "Mexican Navy seizes more than four metric tons of suspect cocaine — Heraldo USA (Aug 4)", url: "https://www.heraldousa.com/mexico-en/2026/8/4/in-separate-operation-the-mexican-navy-seizes-more-than-four-metric-tons-of-suspect-cocaine-34567.html" }
+    ]
+  },
+  {
+    cat: "sanctions", type: "point", coords: [26.80, 51.50],
+    title: "US Treasury sanctions further vessels/entities in Iran-linked shadow shipping network",
+    date: "August 5, 2026", dateISO: "2026-08-05", standing: false,
+    brief: "OFAC added shipping entities and additional tankers to its SDN list this week as part of continued pressure on an Iran-linked illicit shipping network, per a Federal Register notice published Aug 5.",
+    detail: "The action follows a late-July designation wave that named tankers including Nireta (Vanuatu-flagged crude tanker), Well Sail (Marshall Islands-flagged chemical/products tanker) and Yehope (Barbados-flagged crude tanker). Treasury describes the broader effort as targeting the network's ship management, flagging and brokering infrastructure rather than only individual vessels.",
+    sources: [
+      { label: "OFAC adds shipping entities and two vessels to SDN list — gCaptain", url: "https://gcaptain.com/ofac-adds-multiple-shipping-entities-and-two-vessels-to-sdn-list-in-iran-linked-sanctions-update/" },
+      { label: "Notice of OFAC Sanctions Action — Federal Register (Aug 5)", url: "https://www.federalregister.gov/documents/2026/08/05/2026-15849/notice-of-ofac-sanctions-action" },
+      { label: "Treasury intensifies pressure on illicit shipping empire — US Treasury", url: "https://home.treasury.gov/news/press-releases/sb0562" }
+    ]
+  },
+  {
+    cat: "regulatory", type: "zone", coords: [24.80, 66.90], radius: 280000,
+    title: "Lloyd's Joint War Committee removes Pakistan from war-risk Listed Areas",
+    date: "July 30, 2026", dateISO: "2026-07-30", standing: true,
+    brief: "The Joint War Committee formally removed Pakistan and its territorial waters from its Hull War, Piracy, Terrorism and Related Perils Listed Areas on Jul 30, ending a decades-long listing and cutting war-risk premiums for Karachi, Port Qasim and Gwadar.",
+    detail: "Pakistan's Ministry of Maritime Affairs pursued the delisting through a dedicated committee formed after the issue was first raised with the JWC in March 2026, presenting technical and threat-environment evidence. The change is expected to lower shipping costs and improve competitiveness for Pakistani ports relative to regional peers. Flagged here as a standing regulatory item since it falls just outside this run's strict 7-day window but had not previously appeared in this tracker.",
+    sources: [
+      { label: "Pakistan Finally Removed From Global War-Risk Shipping List — ProPakistani (Jul 31)", url: "https://propakistani.pk/2026/07/31/pakistan-finally-removed-from-global-war-risk-shipping-list/" },
+      { label: "Lloyd's removes Pakistan from war-risk maritime list — Business Recorder", url: "https://www.brecorder.com/news/40432548/lloyds-removes-pakistan-from-war-risk-maritime-list" }
+    ]
+  }
 ];
 
-// ---------------------------------------------------------------
-// TIME-PERIOD FILTER — helpers
-// ---------------------------------------------------------------
-const MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-function ymKey(iso){ return iso.slice(0,7); }
-function halfKey(iso){ const [y,m]=iso.split('-'); return ((+m<=6)?'H1 ':'H2 ')+y; }
-function yearKey(iso){ return iso.split('-')[0]; }
-function monthLabel(ym){ const [y,m]=ym.split('-'); return MONTH_NAMES[+m-1]+' '+y; }
-
-const monthsSeen=new Set(), halvesSeen=new Set(), yearsSeen=new Set();
-ITEMS.forEach(it=>{ monthsSeen.add(ymKey(it.dateISO)); halvesSeen.add(halfKey(it.dateISO)); yearsSeen.add(yearKey(it.dateISO)); });
-const monthsSorted = [...monthsSeen].sort().reverse();
-const halvesSorted = [...halvesSeen].sort().reverse();
-const yearsSorted  = [...yearsSeen].sort().reverse();
-
-function passesPeriod(it, selVal, includeStanding){
-  if (includeStanding && it.standing) return true;
-  if (selVal === 'all') return true;
-  const [type, val] = selVal.split('::');
-  if (type==='month') return ymKey(it.dateISO) === val;
-  if (type==='half')  return halfKey(it.dateISO) === val;
-  if (type==='year')  return yearKey(it.dateISO) === val;
+// ===================== TIME PERIOD HELPERS =====================
+function ymKey(iso){ var d = new Date(iso+"T00:00:00Z"); return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0"); }
+function halfKey(iso){ var d = new Date(iso+"T00:00:00Z"); var h = (d.getUTCMonth()+1)<=6 ? "H1" : "H2"; return d.getUTCFullYear()+"-"+h; }
+function yearKey(iso){ var d = new Date(iso+"T00:00:00Z"); return String(d.getUTCFullYear()); }
+function monthLabel(ym){
+  var parts = ym.split("-"); var y = parts[0], m = +parts[1];
+  var names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return names[m-1] + " " + y;
+}
+function passesPeriod(item, period, includeStanding){
+  if (period === "all") return true;
+  if (includeStanding && item.standing) return true;
+  if (period.indexOf("m-") === 0) return ymKey(item.dateISO) === period.slice(2);
+  if (period.indexOf("h-") === 0) return halfKey(item.dateISO) === period.slice(2);
+  if (period.indexOf("y-") === 0) return yearKey(item.dateISO) === period.slice(2);
   return true;
 }
 
-// ---------------------------------------------------------------
-// MAP INIT
-// ---------------------------------------------------------------
-document.getElementById('genDate').textContent = "Generated on " + GENERATED_ON + " · data current through 31 Jul 2026";
-
-const map = L.map('map', { worldCopyJump:true }).setView([15, 20], 2);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// ===================== MAP INIT =====================
+var map = L.map("map", { worldCopyJump: true }).setView([15, 45], 3);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+  subdomains: "abcd", maxZoom: 19
 }).addTo(map);
 
-const layerGroups = {};
-Object.keys(CATEGORIES).forEach(k => { layerGroups[k] = L.layerGroup().addTo(map); });
-
-function popupHtml(it){
-  const cat = CATEGORIES[it.cat];
-  const srcHtml = it.sources.map(s => `<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(' · ');
-  return `
-    <div class="popup-wrap">
-      <span class="cat" style="background:${cat.color}">${cat.label}</span>
-      <h3>${it.title}</h3>
-      <div class="date">${it.date}</div>
-      <p class="brief">${it.brief}</p>
-      <details>
-        <summary>Read more</summary>
-        <p class="detail">${it.detail}</p>
-        <span class="src">Source: ${srcHtml}</span>
-      </details>
-    </div>`;
+// ===================== POPUP RENDERER =====================
+function escapeHtml(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function popupHtml(item){
+  var cfg = CATEGORIES[item.cat] || { label: item.cat, color: "#666" };
+  var srcHtml = item.sources.map(function(s){
+    return '<a href="'+s.url+'" target="_blank" rel="noopener">'+escapeHtml(s.label)+"</a>";
+  }).join("<br/>");
+  var standingTag = item.standing ? " · standing advisory" : "";
+  return (
+    '<div class="popup-wrap">' +
+      '<span class="cat" style="background:'+cfg.color+'">'+escapeHtml(cfg.label)+"</span>" +
+      "<h3>"+escapeHtml(item.title)+"</h3>" +
+      '<div class="date">'+escapeHtml(item.date)+standingTag+"</div>" +
+      '<p class="brief">'+escapeHtml(item.brief)+"</p>" +
+      "<details>" +
+        "<summary>Details &amp; sources</summary>" +
+        '<div class="detail">'+escapeHtml(item.detail)+"</div>" +
+        '<span class="src">'+srcHtml+"</span>" +
+      "</details>" +
+    "</div>"
+  );
 }
 
-const allPoints = [];
-ITEMS.forEach(it => {
-  const color = CATEGORIES[it.cat].color;
-  let layer;
-  if (it.type === "area") {
-    layer = L.circle(it.coords, { radius: it.radius, color: color, weight: 1.5, fillColor: color, fillOpacity: 0.16 });
+// ===================== LAYER BUILD =====================
+var layerByItem = [];
+ITEMS.forEach(function(item){
+  var cfg = CATEGORIES[item.cat] || { color: "#666" };
+  var layer;
+  if (item.type === "zone" && item.radius){
+    layer = L.circle(item.coords, {
+      radius: item.radius, color: cfg.color, weight: 1.5,
+      fillColor: cfg.color, fillOpacity: 0.16
+    });
   } else {
-    layer = L.circleMarker(it.coords, { radius: 7, color: "#fff", weight: 1.5, fillColor: color, fillOpacity: 0.95 });
+    layer = L.circleMarker(item.coords, {
+      radius: 7, color: cfg.color, weight: 1.5,
+      fillColor: cfg.color, fillOpacity: 0.85
+    });
   }
-  layer.bindPopup(popupHtml(it), { maxWidth: 300 });
-  it._layer = layer;
-  allPoints.push(it.coords);
+  layer.bindPopup(popupHtml(item));
+  layerByItem.push({ item: item, layer: layer });
 });
 
-// Fit the whole world's worth of markers on load, with sane bounds
-map.fitBounds(allPoints, { padding: [20,20] });
-if (map.getZoom() > 4) map.setZoom(4);
-if (map.getZoom() < 2) map.setZoom(2);
+// ===================== LEGEND / FILTER CONTROL =====================
+var LegendControl = L.Control.extend({
+  options: { position: "topright" },
+  onAdd: function(){
+    var container = L.DomUtil.create("div", "legend");
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
 
-// ---------------------------------------------------------------
-// LEGEND + FILTER CONTROL
-// ---------------------------------------------------------------
-const catEnabled = {};
-Object.keys(CATEGORIES).forEach(k => catEnabled[k] = true);
-let currentPeriod = 'all';
-let includeStanding = true;
+    var head = L.DomUtil.create("div", "legend-head", container);
+    var h4 = L.DomUtil.create("h4", "", head);
+    h4.textContent = "Layers";
+    var toggleBtn = L.DomUtil.create("button", "legend-toggle", head);
+    toggleBtn.type = "button";
+    toggleBtn.setAttribute("aria-label", "Collapse legend");
+    toggleBtn.textContent = "▼";
+    L.DomEvent.on(head, "click", function(){
+      container.classList.toggle("collapsed");
+    });
 
-const legend = L.control({ position: 'topright' });
-let legendDiv;
-legend.onAdd = function () {
-  legendDiv = L.DomUtil.create('div', 'legend');
+    var body = L.DomUtil.create("div", "legend-body", container);
 
-  let periodOptions = '<option value="all">All time</option>';
-  periodOptions += '<optgroup label="By month">' + monthsSorted.map(m=>`<option value="month::${m}">${monthLabel(m)}</option>`).join('') + '</optgroup>';
-  periodOptions += '<optgroup label="By half-year">' + halvesSorted.map(h=>`<option value="half::${h}">${h}</option>`).join('') + '</optgroup>';
-  periodOptions += '<optgroup label="By year">' + yearsSorted.map(y=>`<option value="year::${y}">${y}</option>`).join('') + '</optgroup>';
+    // Time period filter
+    var periodBlock = L.DomUtil.create("div", "filterblock", body);
+    var periodLbl = L.DomUtil.create("label", "fl", periodBlock);
+    periodLbl.textContent = "Time period";
+    var select = L.DomUtil.create("select", "", periodBlock);
+    select.id = "periodSelect";
 
-  let html = `
-    <div class="legend-head"><h4>Layers &amp; Filters</h4><button class="legend-toggle" aria-label="Toggle panel">▾</button></div>
-    <div class="legend-body">
-      <div class="filterblock">
-        <label class="fl">Time period</label>
-        <select id="periodSelect">${periodOptions}</select>
-        <div class="standing-row">
-          <input type="checkbox" id="standingToggle" checked>
-          <label for="standingToggle" style="cursor:pointer;">Always show standing risk zones</label>
-        </div>
-      </div>
-      <hr>`;
-  Object.keys(CATEGORIES).forEach(k => {
-    const c = CATEGORIES[k];
-    html += `<label><input type="checkbox" checked data-key="${k}">
-      <span class="dot" style="background:${c.color}"></span>
-      ${c.label}<span class="count" id="count-${k}">0</span></label>`;
-  });
-  html += '<hr><div class="note">Shaded circles = risk zones / advisory areas. Dots = discrete events. Click any feature to expand full detail &amp; source.</div>';
-  html += '<hr><div class="note"><b>Reporting centres referenced:</b> IFC-IOR, UKMTO/JMIC, ReCAAP ISC, MDAT-GoG, Lloyd\'s JWC, NATO Shipping Centre, IMO, plus verified maritime &amp; general news outlets (Reuters, AP, Al Jazeera, Lloyd\'s List, gCaptain, Maritime Executive, Splash247, Naval News, USNI News, The Diplomat and others).</div>';
-  html += '</div>';
-  legendDiv.innerHTML = html;
+    var months = {};
+    ITEMS.forEach(function(it){ months[ymKey(it.dateISO)] = true; });
+    var monthKeys = Object.keys(months).sort().reverse();
+    var years = {}; monthKeys.forEach(function(m){ years[m.split("-")[0]] = true; });
+    var yearKeys = Object.keys(years).sort().reverse();
+    var halves = {}; ITEMS.forEach(function(it){ halves[halfKey(it.dateISO)] = true; });
+    var halfKeys = Object.keys(halves).sort().reverse();
 
-  L.DomEvent.disableClickPropagation(legendDiv);
-  L.DomEvent.disableScrollPropagation(legendDiv);
+    function addOption(value, label){
+      var o = document.createElement("option");
+      o.value = value; o.textContent = label;
+      select.appendChild(o);
+    }
+    addOption("all", "All time");
+    var monthGroup = document.createElement("optgroup"); monthGroup.label = "Month";
+    monthKeys.forEach(function(m){
+      var o = document.createElement("option");
+      o.value = "m-"+m; o.textContent = monthLabel(m);
+      monthGroup.appendChild(o);
+    });
+    select.appendChild(monthGroup);
+    var halfGroup = document.createElement("optgroup"); halfGroup.label = "Half-year";
+    halfKeys.forEach(function(h){
+      var o = document.createElement("option");
+      var parts = h.split("-");
+      o.value = "h-"+h;
+      o.textContent = (parts[1]==="H1" ? "Jan–Jun " : "Jul–Dec ") + parts[0];
+      halfGroup.appendChild(o);
+    });
+    select.appendChild(halfGroup);
+    var yearGroup = document.createElement("optgroup"); yearGroup.label = "Year";
+    yearKeys.forEach(function(y){
+      var o = document.createElement("option");
+      o.value = "y-"+y; o.textContent = y;
+      yearGroup.appendChild(o);
+    });
+    select.appendChild(yearGroup);
 
-  // collapse by default on small/medium screens (phones and tablets in portrait)
-  if (window.matchMedia('(max-width:900px)').matches) legendDiv.classList.add('collapsed');
+    var standingRow = L.DomUtil.create("div", "standing-row", periodBlock);
+    var standingCb = document.createElement("input");
+    standingCb.type = "checkbox"; standingCb.id = "standingToggle"; standingCb.checked = true;
+    var standingLbl = document.createElement("label");
+    standingLbl.setAttribute("for", "standingToggle");
+    standingLbl.textContent = "Always show standing advisories";
+    standingRow.appendChild(standingCb); standingRow.appendChild(standingLbl);
 
-  legendDiv.querySelector('.legend-head').addEventListener('click', () => {
-    legendDiv.classList.toggle('collapsed');
-  });
+    L.DomUtil.create("hr", "", body);
 
-  return legendDiv;
-};
-legend.addTo(map);
+    // Category checkboxes
+    var catState = {};
+    var catRows = {};
+    Object.keys(CATEGORIES).forEach(function(key){
+      catState[key] = true;
+      var lbl = L.DomUtil.create("label", "", body);
+      var cb = document.createElement("input");
+      cb.type = "checkbox"; cb.checked = true; cb.dataset.cat = key;
+      var dot = document.createElement("span");
+      dot.className = "dot"; dot.style.background = CATEGORIES[key].color;
+      var span = document.createElement("span");
+      span.textContent = CATEGORIES[key].label;
+      var count = document.createElement("span");
+      count.className = "count"; count.textContent = "0";
+      lbl.appendChild(cb); lbl.appendChild(dot); lbl.appendChild(span); lbl.appendChild(count);
+      catRows[key] = count;
+      L.DomEvent.on(cb, "change", function(){
+        catState[key] = cb.checked;
+        applyFilters();
+      });
+    });
 
-function applyFilters(){
-  const counts = {};
-  Object.keys(CATEGORIES).forEach(k => counts[k]=0);
+    L.DomUtil.create("hr", "", body);
+    var note = L.DomUtil.create("div", "note", body);
+    note.textContent = ITEMS.length + " items tracked · generated " + GENERATED_ON;
 
-  ITEMS.forEach(it => {
-    const show = catEnabled[it.cat] && passesPeriod(it, currentPeriod, includeStanding);
-    const group = layerGroups[it.cat];
-    const already = group.hasLayer(it._layer);
-    if (show && !already) group.addLayer(it._layer);
-    if (!show && already) group.removeLayer(it._layer);
-    if (show) counts[it.cat]++;
-  });
+    L.DomEvent.on(select, "change", applyFilters);
+    L.DomEvent.on(standingCb, "change", applyFilters);
 
-  Object.keys(CATEGORIES).forEach(k => {
-    const el = document.getElementById('count-'+k);
-    if (el) el.textContent = counts[k];
-  });
+    function applyFilters(){
+      var period = select.value;
+      var includeStanding = standingCb.checked;
+      var counts = {};
+      Object.keys(CATEGORIES).forEach(function(k){ counts[k] = 0; });
+      layerByItem.forEach(function(entry){
+        var item = entry.item, layer = entry.layer;
+        var catOk = catState[item.cat];
+        var periodOk = passesPeriod(item, period, includeStanding);
+        var show = catOk && periodOk;
+        if (show){
+          if (!map.hasLayer(layer)) layer.addTo(map);
+          counts[item.cat]++;
+        } else {
+          if (map.hasLayer(layer)) map.removeLayer(layer);
+        }
+      });
+      Object.keys(catRows).forEach(function(k){ catRows[k].textContent = counts[k]; });
+    }
+
+    // expose for initial call after DOM insertion
+    container._applyFilters = applyFilters;
+    return container;
+  }
+});
+var legendControl = new LegendControl();
+map.addControl(legendControl);
+// initial render (all layers on, counts populated)
+legendControl.getContainer()._applyFilters();
+
+// Collapse legend by default on narrow/mobile screens
+if (window.innerWidth <= 768){
+  legendControl.getContainer().classList.add("collapsed");
 }
-applyFilters();
 
-document.addEventListener('change', (e) => {
-  if (!e.target) return;
-  if (e.target.matches('input[type=checkbox][data-key]')) {
-    catEnabled[e.target.getAttribute('data-key')] = e.target.checked;
-    applyFilters();
-  } else if (e.target.id === 'periodSelect') {
-    currentPeriod = e.target.value;
-    applyFilters();
-  } else if (e.target.id === 'standingToggle') {
-    includeStanding = e.target.checked;
-    applyFilters();
-  }
-});
+// ===================== FOOTER =====================
+document.getElementById("genDate").textContent =
+  "Generated on " + GENERATED_ON + " · data current through " + GENERATED_ON +
+  " (" + ITEMS.length + " items, " + Object.keys(CATEGORIES).length + " categories)";
 </script>
 </body>
 </html>
-
