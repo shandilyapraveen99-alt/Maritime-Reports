@@ -99,8 +99,8 @@
 
 <script>
 // ===================== CONSTANTS =====================
-var GENERATED_ON = "August 10, 2026";
-var GENERATED_ISO = "2026-08-10";
+var GENERATED_ON = "August 17, 2026";
+var GENERATED_ISO = "2026-08-17";
 
 // ===================== CATEGORIES =====================
 var CATEGORIES = {
@@ -120,22 +120,19 @@ var CATEGORIES = {
 };
 
 // ===================== ITEMS =====================
-// NOTE: This refresh could not recover the prior week's accumulated 43-item
-// baseline (see chat message for details). This ITEMS array therefore
-// contains only newly researched, independently sourced items from the
-// 3-10 August 2026 reporting window. Future weekly runs will accumulate
-// on top of this array.
 var ITEMS = [
   {
     cat: "warrisk", type: "zone", coords: [26.30, 56.30], radius: 150000,
-    title: "Strait of Hormuz crisis: attacks continue as toll-window nears expiry",
-    date: "August 8, 2026", dateISO: "2026-08-08", standing: true,
-    brief: "The bulk carrier Minoan Pioneer was struck by an unidentified projectile off the Musandam Peninsula on Aug 3, and ADNOC said one of its vessels was hit by a missile in the strait around Aug 8, with open transits through the southern corridor remaining subdued.",
-    detail: "Iran's Supreme National Security Council has tied any reopening to a US withdrawal of naval forces, sanctions relief and war reparations, and lead negotiator Ghalibaf has said the strait \"will not return to pre-war conditions.\" Iran is also moving to charge a toll for transits once a 60-day toll-free window expires around Aug 17, while barring US- and Israeli-linked vessels outright. Talks between Iran and Oman on safe shipping corridors continued this week without a concluded deal. ADNOC has reported 15 of its vessels attacked since the war began, with one crew fatality and 20 injured.",
+    title: "Strait of Hormuz crisis: US blockade enforcement intensifies, attack frequency rises",
+    date: "August 17, 2026", dateISO: "2026-08-17", standing: true,
+    brief: "JMIC assessed the threat level in the Strait as \"severe\" (its second-highest tier) on Aug 16, citing rising attack frequency: two ADNOC-linked vessels (Navig8 Messi, Aframax Tarif) were struck by UAVs on Aug 13, and the Liberian bulker Al Watan (ADNOC Logistics & Services) was hit by an unidentified projectile in the Omani corridor around Aug 15-17. Traffic remains around 17% of the pre-conflict average. Separately, the US-led blockade of unauthorized traffic to/from Iranian ports remains active: on Aug 11 a Navy MH-60 fired Hellfire missiles into the engine room of the Panama-flagged container ship Vela Nova, 71nm off Pakistan, after it ignored warnings while allegedly attempting to run the blockade — CENTCOM says it has redirected 55 vessels, disabled 3 and boarded 2 since the blockade was reimposed Jul 14.",
+    detail: "Iran's Supreme National Security Council continues to tie any reopening to a US naval withdrawal, sanctions relief and war reparations, and Iran's parliament is reviewing a plan to permanently ban US- and Israeli-linked vessels while charging other traffic a toll. The 60-day toll-free transit window agreed with Oman was due to lapse around Aug 17, though the underlying MOU allows for an extension, and talks between Washington, Tehran and Muscat on a longer-term arrangement continued through the week. All 17 crew of the Vela Nova were accounted for with no injuries; it was the 12th vessel struck by US forces since the blockade was first announced in April and the 3rd since it was reimposed in mid-July. Iran has partially offset the squeeze by reactivating Kharg Island's western oil terminal on Aug 12 (loading a VLCC for the first time since Jul 18) and by routing more crude through the Caspian corridor — Russia-to-Iran wet-cargo shipments have run roughly 2.9x pre-blockade levels since Feb 28.",
     sources: [
-      { label: "UAE ship targeted by missile, tensions stay high — CNBC (Aug 8)", url: "https://www.cnbc.com/2026/08/08/uae-ship-targeted-missile-us-iran-tensions-stay-high.html" },
-      { label: "Iran sets conditions, toll on US/Israeli ships — NPR (Aug 6)", url: "https://www.npr.org/2026/08/06/nx-s1-5923623/iran-strait-hormuz-us-israel-ban" },
-      { label: "Iran-Oman talks, Trump signals optimism — CNN (Aug 8)", url: "https://www.cnn.com/2026/08/08/world/live-news/iran-war-trump" }
+      { label: "Frequency of vessel attacks in Hormuz increases — Seatrade Maritime (Aug 17)", url: "https://www.seatrade-maritime.com/security/frequency-of-vessel-attacks-in-hormuz-increases" },
+      { label: "US military fires on cargo vessel it said sought to break Iran blockade — Al Jazeera (Aug 11)", url: "https://www.aljazeera.com/news/2026/8/11/us-military-fires-on-cargo-vessel-it-said-sought-to-break-iran-blockade" },
+      { label: "US forces disable Iran-bound ship with Hellfire missiles — The Epoch Times", url: "https://www.theepochtimes.com/world/us-forces-disable-iran-bound-ship-with-hellfire-missiles-6074217" },
+      { label: "Kharg's Western Terminal Reactivates as the Caspian Corridor Structurally Expands — Windward", url: "https://windward.ai/blog/kharg-reactivates-as-irans-caspian-corridor-expands/" },
+      { label: "Strait of Hormuz traffic falls to 17% of pre-conflict average — The Hill", url: "https://thehill.com/policy/international/6022634-strait-of-hormuz-conflict-traffic-drops/" }
     ]
   },
   {
@@ -229,13 +226,14 @@ var ITEMS = [
   },
   {
     cat: "chokepoints", type: "zone", coords: [9.08, -79.68], radius: 35000,
-    title: "Panama Canal tightens Neopanamax draft limit to 48.5ft as El Niño risk builds",
-    date: "August 5, 2026", dateISO: "2026-08-05", standing: true,
-    brief: "The Panama Canal Authority cut the maximum authorized Neopanamax draft to 48.5 feet effective Aug 15 (from 49.0 feet on Jul 24), with further step-downs already flagged for late August and early September as Gatun Lake levels fall.",
-    detail: "The ACP says water-saving measures mean the daily transit count itself is not being cut, only draft. Forecasters cited in trade press warn the developing El Niño has an 81% chance of reaching \"very strong\" status by late 2026, raising the risk of below-normal Central American rainfall and further restrictions through the dry season.",
+    title: "Panama Canal cuts draft to 48.5ft on schedule; further cuts to 47.5ft flagged by early September",
+    date: "August 15, 2026", dateISO: "2026-08-15", standing: true,
+    brief: "The Panama Canal Authority's phased draft reduction took effect on Aug 15 (the canal's 112th anniversary), cutting the maximum Neopanamax draft to 48.5 feet; a further step to 48 feet is scheduled for Aug 26 and to 47.5 feet from Sep 3, with slot prices reportedly hitting record levels.",
+    detail: "The ACP says water-saving measures mean the daily transit count itself is not being cut, only draft, and the schedule is being set against Gatun Lake levels and hydrological forecasts. Forecasters cited in trade press continue to warn the developing El Niño has an 81% chance of reaching \"very strong\" status by late 2026, raising the risk of below-normal Central American rainfall and further restrictions through the dry season; auction-style slot premiums have reportedly reached record highs amid the combined pressure of the war-driven Hormuz/Red Sea diversions and canal drought risk.",
     sources: [
       { label: "Panama Canal to Tighten Draft Limits Again as Water Levels Continue to Fall — gCaptain", url: "https://gcaptain.com/panama-canal-to-tighten-draft-limits-again-as-water-levels-continue-to-fall/" },
-      { label: "Draft restrictions tightened again in Panama Canal — SeaNews", url: "https://www.seanews.com.tr/article/draft-restrictions-tightened-again-in-panama-canal-msh87avj" }
+      { label: "Draft restrictions tightened again in Panama Canal — SeaNews", url: "https://www.seanews.com.tr/article/draft-restrictions-tightened-again-in-panama-canal-msh87avj" },
+      { label: "Panama Canal Slot Prices Break Records as War and Drought Hit US Shoppers — Tech Times (Aug 15)", url: "https://www.techtimes.com/articles/324607/20260815/panama-canal-slot-prices-break-records-war-drought-hit-us-shoppers.htm" }
     ]
   },
   {
@@ -269,6 +267,418 @@ var ITEMS = [
     sources: [
       { label: "Pakistan Finally Removed From Global War-Risk Shipping List — ProPakistani (Jul 31)", url: "https://propakistani.pk/2026/07/31/pakistan-finally-removed-from-global-war-risk-shipping-list/" },
       { label: "Lloyd's removes Pakistan from war-risk maritime list — Business Recorder", url: "https://www.brecorder.com/news/40432548/lloyds-removes-pakistan-from-war-risk-maritime-list" }
+    ]
+  },
+  {
+    cat: "warrisk", type: "point", coords: [12.66, 43.42],
+    title: "Houthi \"double-tap\" strike on cargo ship Tihamah kills six near Perim Island/Al Mokha",
+    date: "August 11, 2026", dateISO: "2026-08-11", standing: false,
+    brief: "The Tanzanian-flagged, Egyptian-owned multipurpose ship Tihamah was hit by a projectile (Houthi forces fired three ballistic missiles per most reporting) in the southern Red Sea near Perim Island/Al Mokha, then struck again as Yemeni rescuers responded — a \"double-tap\" pattern that killed six people (three Pakistani and one Indonesian crew member, plus two Yemeni rescue personnel) and wounded about ten more.",
+    detail: "Yemen's internationally recognized government said the Tihamah was a commercial vessel carrying food supplies; the Houthis claimed it was a Saudi military ship. The attack came amid the Houthis' broader naval blockade of Saudi-linked shipping declared on Jul 20, under which daily vessel traffic through Bab al-Mandeb has reportedly fallen from around 50 to 32 ships. It is one of the deadliest single incidents against commercial shipping in the Red Sea theatre so far in 2026 and marks an escalation in tactics, given the deliberate targeting of the rescue response.",
+    sources: [
+      { label: "Houthi double-tap attack on Red Sea ship: how it unfolded — The National (Aug 12)", url: "https://www.thenationalnews.com/news/mena/2026/08/12/houthi-double-tap-attack-on-red-sea-ship-how-it-unfolded/" },
+      { label: "Six killed in Houthi attack on Bab al-Mandeb ship, Yemen's government says — Al Jazeera (Aug 12)", url: "https://www.aljazeera.com/news/2026/8/12/six-killed-in-houthi-attack-on-bab-al-mandeb-ship-yemens-government-says" },
+      { label: "Houthi Double-Tap Kills Crew and Rescuers; Red Sea Safe Passage Collapses — Tech Times", url: "https://www.techtimes.com/articles/324032/20260811/houthi-double-tap-kills-crew-rescuers-red-sea-safe-passage-collapses.htm" }
+    ]
+  },
+  {
+    cat: "regulatory", type: "zone", coords: [20.00, 38.50], radius: 450000,
+    title: "JWC circular JWLA-034 adds Saudi Arabia and Eritrea to war-risk Listed Areas, shifts Red Sea line north",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: true,
+    brief: "Lloyd's Joint War Committee circular JWLA-034 (dated Jul 29, effective for members from Aug 12) added Saudi Arabia and Eritrea to the Hull War, Piracy, Terrorism and Related Perils Listed Areas and moved the Red Sea notification boundary north to south of latitude 25.5°N (excluding Egyptian territorial waters), alongside amendments to the Gulf/Gulf of Oman, Indian Ocean, Gulf of Aden and southern Red Sea areas.",
+    detail: "The same circular formally removed Pakistan from the Listed Areas (see the Jul 30 item in this tracker), continuing the JWC's pattern through 2026 of widening or shifting listed zones in step with the Hormuz/Red Sea conflict rather than issuing a single static list. Shipowners transiting the newly listed Saudi and Eritrean coastal waters (12nm offshore) must now notify hull war insurers and pay additional war-risk premiums or risk invalidating cover. The change reflects insurers' assessment of spillover risk to Red Sea littoral states from the Houthi blockade and Hormuz conflict rather than a discrete attack on Saudi or Eritrean territory.",
+    sources: [
+      { label: "JWLA-034, 29 July 2026 Joint War Committee Circular — Lloyd's Market Association (PDF)", url: "https://lmalloyds.com/wp-content/uploads/2025/06/JWLA-034-Saudi-Arabia.pdf" },
+      { label: "JWLA-034 — Alandia Insurance", url: "https://alandia.com/news/jwla-034/" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "point", coords: [24.00, 121.20],
+    title: "Elevated PLA sortie and median-line-crossing tempo around Taiwan, Aug 14-16",
+    date: "August 16, 2026", dateISO: "2026-08-16", standing: false,
+    brief: "Taiwan's MND recorded a marked mid-August uptick in PLA activity: 9 aircraft sorties/12 PLAN vessels on Aug 14 (6 sorties crossing the median line), 4 sorties/8 vessels on Aug 15 (3 crossing), and 11 sorties/8 vessels on Aug 16 (7 crossing) — among the highest single-day median-line-crossing counts logged by Taipei this reporting cycle.",
+    detail: "The three-day tempo is a step up from the roughly 4-9 sortie range logged in early August and continues the pattern flagged by analysts of near-daily PLA pressure short of large-scale, named exercises. Combined with continued Type 076 amphibious assault ship (Sichuan) development, Taipei and outside analysts read the pattern as normalization of coercive presence rather than preparation for an imminent large-scale action.",
+    sources: [
+      { label: "Taiwan detects nine PLA aircraft, 12 PLAN vessels — ANI News (Aug 14)", url: "https://aninews.in/news/world/asia/taiwan-detects-nine-pla-aircraft-12-plan-vessels-two-official-ships-around-its-territory20260814070101/" },
+      { label: "Taiwan detects four PLA aircraft sorties, eight PLAN vessels — ANI News (Aug 15)", url: "https://aninews.in/news/world/asia/taiwan-detects-four-pla-aircraft-sorties-eight-plan-vessels-around-its-territory20260815064758/" },
+      { label: "Taiwan detects 11 Chinese aircraft, eight naval vessels — ANI News (Aug 16)", url: "https://aninews.in/news/world/asia/taiwan-detects-11-chinese-aircraft-eight-naval-vessels-operating-near-its-territory20260816064256/" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [30.39, -81.42],
+    title: "Exercise PANAMAX 2026 concludes at Mayport, Florida",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: false,
+    brief: "US Naval Forces Southern Command/US 4th Fleet completed the Combined Force Maritime Component Command portion of the annual multinational exercise PANAMAX, which ran Aug 3-12 and focused on maritime interoperability and defense-of-the-canal scenarios among partner-nation navies.",
+    detail: "PANAMAX is one of the longest-running US-led multinational maritime exercises in the Western Hemisphere, built around scenarios protecting Panama Canal access and regional sea lanes. The 2026 iteration reinforced coalition command-and-control and maritime domain awareness procedures among participating Latin American and US forces.",
+    sources: [
+      { label: "Exercise PANAMAX 2026 Concludes in Mayport, Florida — GlobalSecurity.org/US Navy", url: "https://www.globalsecurity.org/military/library/news/2026/08/mil-260813-usn01.htm" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [9.93, 76.26],
+    title: "India-US Navy Explosive Ordnance Disposal exercise held at Kochi",
+    date: "August 14, 2026", dateISO: "2026-08-14", standing: false,
+    brief: "The Indian Navy-US Navy bilateral Explosive Ordnance Disposal (EOD) Exercise 2026 ran Aug 10-14 at Southern Naval Command, Kochi, aimed at improving joint response to complex maritime EOD scenarios.",
+    detail: "The exercise forms part of the steady cadence of India-US bilateral naval engagement alongside the annual MALABAR exercise and other service-to-service exchanges, reflecting continued deepening of maritime security cooperation between the two navies.",
+    sources: [
+      { label: "Indian, American Navies to Hold Bilateral Exercise in Kochi From August 10 — Ground News/The Tribune", url: "https://ground.news/article/indian-us-navy-explosive-ordnance-disposal-exercise-2026-to-commence-at-southern-naval-command-kochi-the-tribune" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [38.90, -77.04],
+    title: "Trump orders fifth US Navy public shipyard and opens door to foreign-built warships",
+    date: "August 14, 2026", dateISO: "2026-08-14", standing: false,
+    brief: "A National Security Presidential Memorandum signed Aug 14 directs the establishment of a fifth US Navy public shipyard — the first new public naval yard in more than 80 years — to expand submarine and aircraft carrier maintenance capacity, alongside a companion order authorizing limited construction of US warships abroad under specified national-security conditions.",
+    detail: "The memorandum also orders a reorganization of Naval Sea Systems Command aimed at tying leadership accountability to delivery speed and reducing unnecessary redesigns. Potential sites for the new yard under consideration are near the Pacific Fleet, including the continental US, Alaska, Hawaii and US territories; a location and expansion plan is due within 120 days. The measures follow February 2026's Maritime Action Plan aimed at rebuilding the US commercial and defense shipbuilding industrial base.",
+    sources: [
+      { label: "US President Trump Orders Fifth US Navy Shipyard — Army Recognition", url: "https://www.armyrecognition.com/news/navy-news/2026/u-s-president-trump-orders-fifth-u-s-navy-shipyard-to-put-more-nuclear-submarines-carriers-back-to-sea" },
+      { label: "Fact Sheet: Trump Rebuilds the US Navy and America's Shipbuilding Industrial Base — The White House (Aug 14)", url: "https://www.whitehouse.gov/fact-sheets/2026/08/fact-sheet-president-donald-j-trump-rebuilds-the-u-s-navy-and-americas-shipbuilding-industrial-base/" },
+      { label: "Trump Opens Door to Foreign-Built Warships in Major Navy Shipbuilding Overhaul — gCaptain", url: "https://gcaptain.com/trump-opens-door-to-foreign-built-warships-in-major-navy-shipbuilding-overhaul/" }
+    ]
+  },
+  {
+    cat: "weather", type: "zone", coords: [21.20, 87.60], radius: 180000,
+    title: "Fresh Bay of Bengal low triggers red alert for extremely heavy rain, fishermen barred from sea",
+    date: "August 17, 2026", dateISO: "2026-08-17", standing: false,
+    brief: "IMD issued a red warning for extremely heavy rain (20cm+/24hr in parts of Odisha) after a fresh low-pressure area formed over the Bay of Bengal, with squally winds of 40-50kmph (gusting 60kmph) forecast along and off the West Bengal, Bangladesh, Odisha and north Andhra Pradesh coasts Aug 16-18; fishermen were advised not to venture to sea in that window.",
+    detail: "Isolated extremely heavy rainfall was forecast for Aug 17 over Gangetic West Bengal and north Odisha (Mayurbhanj, Jhargram, Paschim Medinipur), with the system also raising the risk of coastal flooding and disruption to small-craft and fishing-fleet operations along India's east coast during the advisory period.",
+    sources: [
+      { label: "Fresh low pressure area in Bay of Bengal, IMD warns of extremely heavy rain in Odisha — Business Today (Aug 16)", url: "https://www.businesstoday.in/india/story/fresh-low-pressure-area-in-bay-of-bengal-imd-warns-of-extremely-heavy-rain-in-odisha-549455-2026-08-16" },
+      { label: "Odisha Weather Update: Red Alert for Extremely Heavy Rain, Fishermen Advised Caution — Sunday Guardian Live", url: "https://sundayguardianlive.com/india/odisha-weather-update-red-alert-for-extremely-heavy-rain-as-fresh-low-pressure-area-forms-over-bay-of-bengal-fishermen-advised-caution-262493/" }
+    ]
+  },
+  {
+    cat: "incidents", type: "point", coords: [22.19, 88.19],
+    title: "Singapore-flagged boxship Nawata Bhum runs aground on Hooghly River near Diamond Harbour",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: false,
+    brief: "The RCL-owned, Singapore-flagged 13,852dwt containership Nawata Bhum, inbound to Kolkata from Port Klang, suffered a steering-gear jam while recovering from a turn and ran its bow into the riverbank near Nurpur ferry ghat, Diamond Harbour, about 50km south of Kolkata. No injuries were reported and the hull was reported undamaged.",
+    detail: "The vessel remained aground for several hours until tugboats freed it around 22:30 local time on the high tide, after which it proceeded to Kolkata under tow. Singapore's Maritime and Port Authority said it would investigate the steering failure; strong Hooghly River currents were cited as a contributing factor.",
+    sources: [
+      { label: "Boxship runs aground near Kolkata after steering failure — Splash247", url: "https://splash247.com/boxship-runs-aground-near-kolkata-after-steering-failure/" },
+      { label: "Singapore-registered container ship crashes into riverbank in India; MPA to probe incident — Yahoo News Singapore", url: "https://sg.news.yahoo.com/singapore-registered-container-ship-crashes-083500437.html" },
+      { label: "Video: Singapore-Flagged Container Ship Loses Steering Before Running Aground In India — Marine Insight", url: "https://www.marineinsight.com/video-singapore-flagged-container-ship-loses-steering-before-running-aground-in-india/" }
+    ]
+  },
+  {
+    cat: "regulatory", type: "zone", coords: [13.00, 51.00], radius: 700000,
+    title: "P&I clubs and reinsurers withdraw fixed-premium war-risk cover across Red Sea, Gulf of Aden, western Indian Ocean",
+    date: "August 13, 2026", dateISO: "2026-08-13", standing: true,
+    brief: "Following cancellation notices from their commercial reinsurers, Gard, Skuld, NorthStandard, UK P&I Club, The Swedish Club, London P&I and other International Group members withdrew commercially reinsured fixed-premium war-risk cover for a widened Red Sea/Gulf of Aden/western Indian Ocean zone, effective 0001 GMT Aug 16.",
+    detail: "The affected area extends south of latitude 25°30'N in the Red Sea, through the Gulf of Aden and into the western Indian Ocean, and specifically captures the Bab el-Mandeb traffic separation scheme, the Yemeni coast and much of Saudi Arabia's Red Sea coastline. The withdrawal principally affects war-risk components attached to fixed-premium P&I and charterers' liability policies, non-poolable extensions and other ancillary products, leaving owners transiting the zone reliant on the commercial standalone war-risk market at short notice and materially higher rates.",
+    sources: [
+      { label: "Red Sea war risks cover withdrawn by two insurers — Royal Gazette", url: "https://www.royalgazette.com/reinsurance/business/article/20260813/red-sea-war-risks-cover-withdrawn-by-two-insurers/" },
+      { label: "Skuld cancels war risk cover across parts of Red Sea, Gulf of Aden and Indian Ocean — SAFETY4SEA", url: "https://safety4sea.com/skuld-cancels-war-risk-cover-across-parts-of-red-sea-gulf-of-aden-and-indian-ocean/" },
+      { label: "General notice of cancellation and reinstatement — Skuld", url: "https://www.skuld.com/about/-/circulars/2026/general-notice-of-cancellation-and-reinstatement-in-respect-of-certain-war-risks-indian-ocean-gulf-of-aden-and-red-sea/" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [21.49, 39.19],
+    title: "Saudi-led 14-nation Multinational Maritime Defense Alliance begins operations to secure Bab al-Mandab and Red Sea",
+    date: "August 14, 2026", dateISO: "2026-08-14", standing: true,
+    brief: "The Saudi-led Multinational Maritime Defense Alliance — first announced Jul 30 and comprising Bahrain, Bangladesh, Comoros, Djibouti, Egypt, Jordan, Kuwait, Pakistan, Qatar, Saudi Arabia, Somalia, Sudan, Turkiye and Yemen — marked its formal start on Aug 14, tasked with securing navigation through the Bab al-Mandab Strait, Red Sea and Gulf of Aden.",
+    detail: "Saudi Arabia is the founding and leading nation and will host the alliance's permanent headquarters, joint command, Combined Maritime Operations Centre and General Secretariat; a coalition commander was named in early August. Houthi forces have vowed \"full escalation\" in response, and analysts note the coalition's credibility will be tested by whether it can meaningfully reduce the roughly 20%+ reduction in Bab al-Mandeb traffic caused by the blockade rather than simply add another layer of declaratory presence.",
+    sources: [
+      { label: "Saudi Arabia announces start of Red Sea defence alliance: Will it work? — Al Jazeera (Aug 14)", url: "https://www.aljazeera.com/news/2026/8/14/saudi-arabia-announces-start-of-red-sea-defence-alliance-will-it-work" },
+      { label: "Saudi Arabia Leads 14-Nation Naval Coalition to Counter Houthi Blockade — Militarnyi", url: "https://militarnyi.com/en/news/saudi-arabia-leads-14-nation-naval-coalition-to-counter-houthi-blockade/" },
+      { label: "Saudi Arabia names commander for maritime defence coalition — Al Jazeera (Aug 6)", url: "https://www.aljazeera.com/news/2026/8/6/saudi-arabia-names-commander-for-maritime-defence-coalition" }
+    ]
+  },
+  {
+    cat: "incidents", type: "point", coords: [23.30, 58.75],
+    title: "Sanctioned tanker Caroline Bezengi's oil spill off Oman grows to ~800 sq km; salvage crews race to contain it",
+    date: "August 13, 2026", dateISO: "2026-08-13", standing: true,
+    brief: "The grounded, UK-sanctioned Suezmax tanker Caroline Bezengi — carrying roughly 1 million barrels of Russian-origin crude when it reported an explosion in June — has continued leaking oil off Oman; satellite-tracked slick area grew from ~150 sq km (Aug 2) to ~600 sq km (Aug 4) to nearly 800 sq km (Aug 7), with oil reaching Omani beaches near a protected marine reserve.",
+    detail: "Specialist salvage personnel have boarded the vessel and additional salvage vessels, aircraft and equipment were en route as of Aug 13, per risk firm Ambrey, though operations are complicated by the seasonal monsoon's unpredictable sea and weather conditions. The tanker departed Novorossiysk in May; its UK-sanctioned status and the scale/duration of the leak have drawn criticism of Oman's pace of public disclosure.",
+    sources: [
+      { label: "Experts Race to Salvage Leaking Oil Tanker Grounded Off Oman — Bloomberg/Insurance Journal (Aug 13)", url: "https://www.insurancejournal.com/news/international/2026/08/13/881350.htm" },
+      { label: "Oman trying to contain extensive oil spill from stricken tanker — Al Jazeera (Aug 10)", url: "https://www.aljazeera.com/news/2026/8/10/oman-trying-to-contain-extensive-oil-spill-from-stricken-tanker" },
+      { label: "Oil leak spreads from a sanctioned tanker grounded off Oman — ABC News", url: "https://abcnews.com/Business/wireStory/oil-leak-spreads-sanctioned-tanker-grounded-off-oman-135291674" }
+    ]
+  },
+  {
+    cat: "chokepoints", type: "zone", coords: [13.00, 43.10], radius: 90000,
+    title: "Bab al-Mandeb transits fall to lowest weekly total in a year",
+    date: "August 9, 2026", dateISO: "2026-08-09", standing: true,
+    brief: "AIS-tracked transits through Bab al-Mandeb fell to 200 for Aug 3-9 (down from 226 the week before and 273 in the last week of July) — the lowest weekly total in a year — with traffic running roughly 38% below normal as the Houthi blockade, insurer withdrawals and the new Saudi-led coalition all reshape risk calculus in the strait.",
+    detail: "The decline compounds the roughly 24% traffic drop already seen after the Houthis' Jul 20 blockade of Saudi-linked shipping, and is occurring alongside the Aug 11 Tihamah double-tap attack and this week's insurer war-risk cover withdrawals — a combination trade press describes as pushing owners toward multi-week Cape of Good Hope diversions rather than accepting southern Red Sea transit risk.",
+    sources: [
+      { label: "Red Sea Brief: 13 August 2026 — Lloyd's List Intelligence", url: "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-13-august-2026" },
+      { label: "Red Sea Brief: 6 August 2026 — Lloyd's List Intelligence", url: "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief-6-august-2026" }
+    ]
+  },
+  {
+    cat: "chokepoints", type: "point", coords: [29.23, 50.32],
+    title: "Iran reactivates Kharg Island western terminal, leans harder on Caspian corridor to bypass Hormuz blockade",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: true,
+    brief: "Iran restarted crude loading at Kharg Island's western terminal on Aug 12, loading a VLCC for the first time since Jul 18, while the eastern oil terminal and LPG terminal have stayed empty for 13 and 16 consecutive days respectively as Tehran routes more volume through Caspian Sea/Russia-linked corridors instead.",
+    detail: "Kharg Island normally handles roughly 90-95% of Iran's crude exports; controlling access to it gives the US blockade a single-point pressure lever. Russia-to-Iran wet-cargo shipments have run at close to 2.9x pre-blockade volumes since Feb 28 (rising from roughly 174,100 to 437,000 barrels), evidence that Iran is structurally rerouting rather than simply waiting out the blockade.",
+    sources: [
+      { label: "Iran reroutes oil flow as loading resumes at Kharg Island terminal — The National (Aug 16)", url: "https://www.thenationalnews.com/business/energy/2026/08/16/iran-reroutes-oil-flow-as-loading-resumes-at-kharg-island-terminal/" },
+      { label: "Kharg's Western Terminal Reactivates as the Caspian Corridor Structurally Expands — Windward", url: "https://windward.ai/blog/kharg-reactivates-as-irans-caspian-corridor-expands/" }
+    ]
+  },
+  {
+    cat: "chokepoints", type: "zone", coords: [30.50, 32.35], radius: 60000,
+    title: "Suez transits stay depressed as container lines keep routing around the Cape of Good Hope",
+    date: "August 2026", dateISO: "2026-08-11", standing: true,
+    brief: "Major container lines including Maersk have continued diverting Asia-Europe and US-bound services around Africa's Cape of Good Hope rather than returning to Suez, as renewed Iran/Israel/US fighting and Red Sea risk overtook an earlier expected 2026 recovery in canal traffic; the Cape routing adds roughly 10-15 days per voyage.",
+    detail: "Carriers had begun cautiously testing a return to Suez earlier in 2026 as Red Sea conditions seemed to stabilize, but abandoned those plans as fighting escalated; some services now require two additional vessels to maintain weekly frequency via the longer Cape route, tightening global vessel capacity and adding cost that is passed through in freight rates alongside sharply higher war-risk premiums for the region.",
+    sources: [
+      { label: "Red Sea Comeback Falters as Maersk Diverts Ships Back Around Cape — gCaptain", url: "https://gcaptain.com/red-sea-comeback-falters-as-maersk-diverts-ships-back-around-cape/" },
+      { label: "Shipping lines reroute from Red Sea avoiding Houthi threat — Seatrade Maritime", url: "https://www.seatrade-maritime.com/containers/shipping-lines-reroute-from-red-sea-avoiding-houthi-threat" }
+    ]
+  },
+  {
+    cat: "regulatory", type: "zone", coords: [39.00, -95.00], radius: 900000,
+    title: "DHS extends Jones Act waiver 90 more days with narrower HTS list and new MARAD pre-voyage approval process",
+    date: "August 13, 2026", dateISO: "2026-08-13", standing: true,
+    brief: "DHS extended its Jones Act waiver a further 90 days (Aug 17-Nov 15, 2026) but cut the list of eligible Harmonized Tariff Schedule codes from over 600 to 237 (roughly two-thirds fewer) and now requires a written \"VESSEL AVAILABILITY REQUEST\" to DOW/MARAD (CBP copied for awareness) before any foreign-flag vessel moves covered cargo between two US ports.",
+    detail: "Covered products must be loaded before 11:59pm ET on Nov 15, 2026 to qualify. The Vessel Availability Request must document the vessel's identity and ownership, voyage dates, load/discharge ports, cargo description, shipment frequency and a justification for why the movement serves the national defense interest — a substantially higher compliance bar than the original waiver, reflecting a push to funnel more coastwise cargo back onto US-flag tonnage.",
+    sources: [
+      { label: "DHS Extends Jones Act Waiver Again And Adds Substantial Procedural Requirements — Mondaq", url: "https://www.mondaq.com/unitedstates/marine-shipping/1830890/dhs-extends-jones-act-waiver-again-and-adds-substantial-procedural-requirements" },
+      { label: "U.S. Extends Jones Act Waiver Another 90 Days, Adds U.S.-Flag Vessel Availability Test — gCaptain", url: "https://gcaptain.com/u-s-extends-jones-act-waiver-another-90-days-adds-u-s-flag-vessel-availability-test/" }
+    ]
+  },
+  {
+    cat: "regulatory", type: "point", coords: [51.50, -0.10],
+    title: "IMO signs updated Port State Control data-exchange agreements with Black Sea and Caribbean MoUs",
+    date: "July 21, 2026", dateISO: "2026-07-21", standing: true,
+    brief: "IMO Secretary-General Arsenio Dominguez signed updated data-exchange agreements with the Black Sea MoU and Caribbean MoU on Port State Control at IMO headquarters on Jul 21, expanding cooperation between regional PSC regimes to better track substandard and sanctioned/shadow-fleet shipping.",
+    detail: "The agreements feed into the continued development of a global PSC Overarching Database within IMO's Global Integrated Shipping Information System (GISIS), intended to give inspectors worldwide a more harmonized, real-time view of a given vessel's inspection history. The push comes as the dark/shadow fleet — now estimated at roughly 600+ vessels, up about 70% over recent years — increasingly relies on jurisdiction-hopping and stale registry data to evade scrutiny. Flagged here as a standing regulatory item slightly outside the strict 7-day window given its direct relevance to shadow-fleet tracking discussed elsewhere in this report.",
+    sources: [
+      { label: "IMO expands global PSC data exchange with Black Sea, Caribbean MoUs — SAFETY4SEA", url: "https://safety4sea.com/imo-expands-global-psc-data-exchange-with-black-sea-caribbean-mous/" },
+      { label: "Strengthening global Port State Control data exchange with two new agreements — IMO", url: "https://www.imo.org/en/mediacentre/pages/whatsnew-2478.aspx" }
+    ]
+  },
+  {
+    cat: "sanctions", type: "point", coords: [18.95, 72.95],
+    title: "UANI tracking flags Iran-linked transshipment activity and Ghost Armada loitering near Nhava Sheva, India",
+    date: "August 11, 2026", dateISO: "2026-08-11", standing: false,
+    brief: "United Against Nuclear Iran's tanker-tracking unit reported a vessel docked Aug 4-5 at the same Nhava Sheva (Mumbai) terminal previously used by the Iran-flagged, Comoros-flag-spoofing tanker ZYRA, and separately flagged that on Aug 11 at least 46 \"Ghost Armada\" tankers were anchored or loitering with AIS active near the Eastern Off Port Limits (EOPL) area — the same day US forces interdicted the Vela Nova, whose recent movements UANI says point to possible links to Iran-trade transshipment.",
+    detail: "The reporting underscores how Indian transshipment hubs sit adjacent to sanctions-evasion shipping patterns even when not themselves implicated in violations, a recurring CSO/compliance concern as owners and charterers try to screen counterparties and cargo provenance amid the wider Hormuz-conflict sanctions environment.",
+    sources: [
+      { label: "Iran Shipping Update – August 11, 2026 — UANI", url: "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-11-2026" },
+      { label: "Iran Shipping Update – August 12, 2026 — UANI", url: "https://www.unitedagainstnucleariran.com/analysis/iran-shipping-update-august-12-2026" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "point", coords: [24.20, 123.00],
+    title: "China and Indonesia hold first-ever joint naval drill east of Taiwan, inside Taiwan's claimed EEZ",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: false,
+    brief: "The Indonesian Navy frigate KRI I Gusti Ngurah Rai and the PLA Navy guided-missile frigate Honghe conducted communications and underway-replenishment drills east of Taiwan on the morning of Aug 12 — the first time China has exercised with a foreign navy in those waters, which lie within Taiwan's claimed exclusive economic zone.",
+    detail: "Officially described by Beijing and Jakarta as a routine navigation exercise supporting regional peace and stability, the location transforms a limited seamanship drill into strategic signalling: the eastern approaches are Taiwan's principal maritime depth beyond the heavily monitored Taiwan Strait. Taipei condemned the drill as an attempt to create the international impression that China has jurisdiction over waters east of Taiwan, and formally asked Jakarta why it agreed to participate.",
+    sources: [
+      { label: "China, Indonesia to Hold Naval Drill East of Taiwan in Sovereignty Push — Bloomberg (Aug 11)", url: "https://www.bloomberg.com/news/articles/2026-08-11/china-indonesia-plan-joint-exercise-in-waters-east-of-taiwan" },
+      { label: "Taiwan Wants to Know Why Indonesia Joined China in a Naval Exercise East of Taiwan — The Diplomat", url: "https://thediplomat.com/2026/08/taiwan-wants-to-know-why-indonesia-joined-china-in-a-naval-exercise-east-of-taiwan/" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "point", coords: [15.13, 117.77],
+    title: "US State Department condemns China's new \"nature reserve\" controls at Scarborough Shoal as destabilizing",
+    date: "August 11, 2026", dateISO: "2026-08-11", standing: false,
+    brief: "The US State Department said new Chinese administrative controls and a claimed \"nature reserve\" designation over Scarborough Shoal/Huangyan Dao — inside the Philippines' EEZ — are a \"destabilizing activity,\" rejecting the legal basis for the environmental designation as a pretext for advancing China's maritime claims; Secretary Rubio separately condemned China's use of water cannon against Filipino vessels.",
+    detail: "Beijing's foreign ministry rejected the criticism, saying the US is \"in no position to point fingers\" and accusing Washington of playing up tensions. The exchange follows a series of China-Philippines confrontations at Scarborough and Second Thomas Shoal in July 2026 that prompted joint US-Philippines-Japan maritime drills, and comes as Manila separately pursues a quieter legal track — depositing UNCLOS baseline coordinates for the shoal with the UN in July.",
+    sources: [
+      { label: "State Department condemns new Chinese claim to disputed South China Sea shoal as 'destabilizing' — Washington Times", url: "https://www.washingtontimes.com/news/2026/aug/11/state-department-condemns-new-chinese-claim-disputed-south-china-sea/" },
+      { label: "US slams Chinese 'nature reserve' as effort to claim South China Sea — Al Jazeera", url: "https://www.aljazeera.com/news/2026/8/8/us-slams-chinese-nature-reserve-as-effort-to-claim-south-china-sea" }
+    ]
+  },
+  {
+    cat: "greyzone", type: "point", coords: [23.80, 121.00],
+    title: "China Coast Guard tails Japanese patrol vessel sheltering from Typhoon Dolphin, drawing Taiwan condemnation",
+    date: "August 9, 2026", dateISO: "2026-08-09", standing: false,
+    brief: "During Taiwan's Aug 5-14 Han Kuang defense exercises, China Coast Guard vessel 2304 tailed the Japan Coast Guard cutter Urado as it sailed from off Taichung toward Penghu to shelter from Typhoon Dolphin; Taiwan's Mainland Affairs Council condemned the shadowing as an opportunistic expansion of China's \"routine law-enforcement patrol\" footprint in Taiwan's EEZ under cover of a weather emergency.",
+    detail: "Analysts assess Beijing is using typhoon-driven disruptions as low-cost windows to normalize China Coast Guard presence and law-enforcement-style patrolling closer to Taiwan without triggering a proportionate military response, consistent with the broader grey-zone pattern Han Kuang's 2026 iteration was designed to rehearse defenses against.",
+    sources: [
+      { label: "Han Kuang drills suggest deeper alignment with US — Taipei Times (Aug 8)", url: "https://www.taipeitimes.com/News/taiwan/archives/2026/08/08/2003862143" },
+      { label: "Taiwan holds naval drill as China steps up maritime pressure — Taipei Times (Aug 13)", url: "https://www.taipeitimes.com/News/taiwan/archives/2026/08/13/2003862437" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [-33.87, 151.21],
+    title: "Australia and Vietnam deepen defense and maritime-law-enforcement ties amid supply-chain coercion risk",
+    date: "August 11, 2026", dateISO: "2026-08-11", standing: false,
+    brief: "Australian PM Albanese and Vietnamese leader To Lam agreed Aug 11 to strengthen defense and security engagement, signing a Vietnam Coast Guard-Australian Border Force MOU on maritime law-enforcement cooperation and committing to deepen critical-minerals, semiconductor and clean-energy supply-chain cooperation.",
+    detail: "The agreements were framed explicitly as a hedge against restrictive trade practices and growing regional maritime and economic coercion risk, reflecting shared Canberra-Hanoi concern over China's assertiveness — part of a broader pattern this week of middle powers (Vietnam, Indonesia, the Philippines) recalibrating alignments amid intensifying Indo-Pacific grey-zone activity.",
+    sources: [
+      { label: "Australia, Vietnam Deepen Defense as Supply Chain Risks Grow — Bloomberg (Aug 11)", url: "https://www.bloomberg.com/news/articles/2026-08-11/vietnam-australia-to-deepen-defense-critical-minerals-links" },
+      { label: "Australia and Vietnam to deepen defense relations — Taipei Times", url: "https://www.taipeitimes.com/News/front/archives/2026/08/12/2003862342" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [13.08, 80.27],
+    title: "Indian Coast Guard runs OPRC Level-2 oil-spill-response course for Indian Ocean Region partner nations in Chennai",
+    date: "August 14, 2026", dateISO: "2026-08-14", standing: false,
+    brief: "The Indian Coast Guard's Regional Marine Pollution Response Centre (RMPRC) in Chennai ran an OPRC Level-2 oil-spill-response training course Aug 10-14, 2026, for officers from Indian Ocean Region partner nations, continuing India's recurring program of IOR capacity-building courses (participants in recent cycles have included Cambodia, Indonesia, Malaysia, Maldives, Mauritius, Sri Lanka and Thailand).",
+    detail: "RMPRC Chennai is one of India's designated regional pollution-response hubs and regularly hosts OPRC Level-1 and Level-2 courses for both Indian Coast Guard personnel and friendly foreign countries as part of India's IOR maritime-safety outreach; this cycle's course followed the centre's published Aug 10-14 schedule for the Level-2 course.",
+    sources: [
+      { label: "Indian Coast Guard OPRC Level-2 course schedule and IOR training activity — Indian Coast Guard (X/Facebook official posts)", url: "https://x.com/IndiaCoastGuard/status/1961628863173464139" }
+    ]
+  },
+  {
+    cat: "navaldiplo", type: "point", coords: [37.74, -25.67],
+    title: "INS Sudarshini reaches Ponta Delgada, Azores after 19-day Atlantic crossing on Lokayan 26 deployment",
+    date: "August 13, 2026", dateISO: "2026-08-13", standing: false,
+    brief: "Indian Navy sail training ship INS Sudarshini entered Ponta Delgada, Azores (Portugal) on Aug 13 after a 19-day transatlantic passage from Boston, part of the Lokayan 26 deployment; the port call included professional exchanges with the Portuguese Navy and cultural engagements, and coincided with India's 80th Independence Day celebrations aboard.",
+    detail: "The visit is the latest milestone in a series of INS Sudarshini trans-Atlantic port calls under Lokayan 26, following participation in the US Navy's SAIL 250 events in Boston, and reflects continued Indian Navy soft-power/goodwill outreach through its sail-training fleet alongside more conventional bilateral exercise activity.",
+    sources: [
+      { label: "INS Sudarshini Reaches Portugal's Azores After 19-Day Atlantic Crossing — Sentinel Assam", url: "https://www.sentinelassam.com/breakingnews/ins-sudarshini-reaches-portugals-azores-after-19-day-atlantic-crossing" },
+      { label: "INS Sudarshini enters Portugal, marking another trans-Atlantic milestone — IANS", url: "https://ianslive.in/ins-sudarshini-enters-portugal-marking-another-trans-atlantic-milestone--20260814175808" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [25.03, 55.13],
+    title: "Grandweld Shipyards to build two offshore support vessels for Bahri Logistics' Ras Tanura operations",
+    date: "July 22, 2026", dateISO: "2026-07-22", standing: false,
+    brief: "Grandweld Shipyards (Dubai Maritime City) signed a newbuild agreement with Saudi shipping major Bahri's logistics arm to design and build two advanced offshore support vessels for operations at Ras Tanura Port, one of the world's largest energy export hubs; delivery is slated for later in 2026.",
+    detail: "The OSVs will support offshore functions including vessel-clearance coordination, maintenance assistance, crew transfers, emergency response and inspection support, and will feature upgraded navigation, communication and safety systems. The deal is part of a broader build-out of Gulf offshore support capacity as Saudi energy infrastructure operators seek regionally built tonnage. Flagged here as slightly outside the strict 7-day window given its direct relevance to this week's Gulf shipbuilding/energy-infrastructure coverage.",
+    sources: [
+      { label: "Grandweld Shipyards signs agreement with Saudi Arabia's Bahri Logistics to build advanced offshore support vessels — Zawya", url: "https://www.zawya.com/en/press-release/companies-news/grandweld-shipyards-signs-agreement-with-saudi-arabias-bahri-logistics-to-build-advanced-offshore-support-vessels-405639" },
+      { label: "Grandweld Lands Bahri Logistics' OSV Shipbuilding Deal — MarineLink", url: "https://www.marinelink.com/news/grandweld-lands-bahri-logistics-osv-541465" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [18.94, 72.84],
+    title: "Shipping Corporation of India floats $720m tender for up to six 8,000 TEU LNG-fuelled container ships",
+    date: "August 8, 2026", dateISO: "2026-08-08", standing: false,
+    brief: "SCI launched its largest-ever global shipbuilding tender (issued Jul 31) for up to six 8,000 TEU cellular container vessels — two firm plus four optional — at an estimated $720 million, specifying LNG dual-fuel main engines, ~330m length, 19-knot design speed and 20,000nm range; bids are due Aug 31.",
+    detail: "Eligible Indian shipyards get priority via a Right of First Refusal mechanism allowing the lowest Indian bidder to match the lowest foreign offer; yards without prior cellular-containership experience can partner with an experienced foreign builder that has delivered at least two 5,000+ TEU container ships in the past decade. The tender is aimed at rebuilding India's domestic containership tonnage capacity, which has lagged far behind the country's container trade growth.",
+    sources: [
+      { label: "SCI launches $720-million global tender for six 8,000 TEU container ships — IANS", url: "https://ianslive.in/sci-launched-720-million-global-tender-for-six-8000-teu-container-ships--20260808161704" },
+      { label: "India's SCI Seeks Six Newbuild LNG Containerships in Its Biggest Tender — Maritime Executive", url: "https://maritime-executive.com/article/india-s-sci-seeks-six-newbuild-lng-containerships-in-its-biggest-tender" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [39.90, -75.19],
+    title: "Hanwha Philly Shipyard advances plan to scale output toward 20 ships a year",
+    date: "August 2026", dateISO: "2026-08-10", standing: true,
+    brief: "Hanwha Philly Shipyard continues executing its $5 billion expansion — two additional docks and three quays — aimed at lifting annual production from roughly one vessel to as many as 20 per year over the next decade, part of South Korea's broader commitment to US shipbuilding revival; the yard was also recently selected to build two Golden Dome missile-defense ships.",
+    detail: "The expansion touches all three core shipbuilding phases at the yard — block-assembly areas, hull-construction docks and outfitting berths — and is one of the most visible private-sector components of the wider US push (alongside the newly ordered fifth public Navy shipyard) to rebuild commercial and naval shipbuilding capacity that has atrophied over decades.",
+    sources: [
+      { label: "Hanwha Supporting US Shipbuilding Revival — ExecutiveBiz", url: "https://www.executivebiz.com/articles/hanwha-us-shipbuilding-revival" },
+      { label: "Philly Shipyard: Reigniting U.S. maritime strength — Hanwha", url: "https://www.hanwha.com/newsroom/news/feature-stories/the-great-american-shipyard-reset-how-hanwha-and-the-us-are-tooling-up.do" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [1.36, 103.55],
+    title: "Port of Tanjung Pelepas commissions Malaysia's first electric prime-mover fleet",
+    date: "August 11, 2026", dateISO: "2026-08-11", standing: false,
+    brief: "PTP put the first 21 of a planned 52 electric prime movers into service on Aug 11, supplied by Terberg Tractors Malaysia, marking Malaysia's first terminal deployment of electric horizontal-transport equipment; the remaining 31 units are due in stages by end-September.",
+    detail: "Trial data (2023-24) showed each electric unit generating roughly 4,000 kgCO2eq/month versus 7,600 kgCO2eq for a diesel unit (a 48% emissions cut) alongside a 57% reduction in monthly operating cost per unit, underpinning the terminal-electrification business case as regional ports compete on decarbonization credentials as well as throughput.",
+    sources: [
+      { label: "Port of Tanjung Pelepas launches Malaysia's first electric prime mover fleet — Container News", url: "https://container-news.com/port-of-tanjung-pelepas-launches-malaysias-first-electric-prime-mover-fleet/" },
+      { label: "PTP claims a first in electrification — WorldCargo News", url: "https://www.worldcargonews.com/ports-terminals/2026/08/ptp-claims-a-first-in-electrification/" }
+    ]
+  },
+  {
+    cat: "ports", type: "point", coords: [45.85, -73.23],
+    title: "Construction advances on Port of Montreal's C$2.3bn Contrecœur terminal expansion",
+    date: "August 2026", dateISO: "2026-08-12", standing: true,
+    brief: "Work is underway on the C$2.3 billion Contrecœur terminal expansion downriver from Montreal, including a stone jetty and an approximately 675-metre, two-berth wharf that will add roughly 1.15 million TEUs of annual capacity — about a 60% capacity increase for the Port of Montreal and the largest eastern-Canada port expansion on record.",
+    detail: "The project, developed jointly with terminal operator DP World under a joint-development agreement and backed by a C$1.16 billion Canada Infrastructure Bank loan, broke ground in April 2026 with Prime Minister Carney and is targeted for completion around 2030; it is positioned by Ottawa as a flagship 'nation-building' fast-tracked infrastructure project.",
+    sources: [
+      { label: "Construction on Montreal port expansion underway as 'nation-building' effort ramps up — CTV News", url: "https://www.ctvnews.ca/montreal/article/construction-on-montreal-port-expansion-underway-as-nation-building-effort-ramps-up/" },
+      { label: "Port expansion near Montreal gets $1.16-billion loan — The Globe and Mail", url: "https://www.theglobeandmail.com/canada/article-port-expansion-montreal-contrecoeur-major-project-construction/" }
+    ]
+  },
+  {
+    cat: "weather", type: "point", coords: [28.13, 121.27],
+    title: "Typhoon Dolphin makes landfall in Zhejiang, China; over 1 million evacuated",
+    date: "August 9, 2026", dateISO: "2026-08-09", standing: false,
+    brief: "Typhoon Dolphin made landfall near Yuhuan City, Zhejiang Province at about 17:30 local time on Aug 9 with winds over 150km/h, triggering more than 1,000 flight cancellations and the evacuation of over 1 million people, including roughly 900,000 from Wenzhou and 390,000 from Taizhou.",
+    detail: "Authorities opened more than 1,000 emergency shelters and warned of 250-500mm of rain across central and eastern Zhejiang. Dolphin briefly formed part of a rare three-typhoon simultaneous grouping with Chan-hom and the subsequently formed Peilou, underscoring the unusually active pace of the 2026 western Pacific typhoon season, which forecasters link in part to intensifying El Niño conditions affecting coastal shipping and fishing-fleet operations across East Asia.",
+    sources: [
+      { label: "Over 1 million evacuated as Typhoon Dolphin hits China — Euronews", url: "https://www.euronews.com/2026/08/09/over-1-million-evacuated-as-typhoon-dolphin-hits-china" },
+      { label: "Typhoon Dolphin forces over 1 million people to evacuate on China's eastern coast — NPR", url: "https://www.npr.org/2026/08/10/nx-s1-5926450/typhoon-dolphin-forces-over-a-million-people-to-evacuate-on-chinas-eastern-coast" }
+    ]
+  },
+  {
+    cat: "weather", type: "point", coords: [24.78, 141.32],
+    title: "Typhoons Peilou and Nangka track across western Pacific shipping lanes in rapid succession",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: false,
+    brief: "Tropical Storm Peilou (the season's 16th named storm) formed Aug 9 with winds to 75km/h, briefly overlapping with typhoons Dolphin and Chan-hom; Tropical Storm Nangka (17th named storm) then formed Aug 12 south of Iwo Jima as Peilou and Chan-hom dissipated, forecast to track northeast and weaken to a depression by Aug 17 without directly affecting Taiwan.",
+    detail: "The rapid-fire sequence of named systems is consistent with an unusually active 2026 northwestern Pacific typhoon season, which forecasters attribute in part to intensifying El Niño conditions; even storms that stay offshore disrupt regional shipping schedules, fishing-fleet operations and port call planning across Japan, Taiwan and the Philippines during their tracking windows.",
+    sources: [
+      { label: "Typhoon Peilou forms, creating a rare 'three-typhoon' situation alongside Dolphin and Chan-hom — Global Times", url: "https://www.globaltimes.cn/page/202608/1367845.shtml" },
+      { label: "Heat, heavy rain expected in Taiwan as Tropical Storm Nangka forms — Focus Taiwan", url: "https://focustaiwan.tw/society/202608120008" }
+    ]
+  },
+  {
+    cat: "undersea", type: "zone", coords: [-32.10, 115.55], radius: 60000,
+    title: "Two SUBCO-linked subsea cables (Indigo West, Indigo Central) fault off Perth in close succession; AFP assesses suspicious vessel activity",
+    date: "August 9, 2026", dateISO: "2026-08-09", standing: false,
+    brief: "The INDIGO West (Perth-Singapore) and INDIGO Central (Perth-Sydney) submarine cable systems suffered shunt faults in quick succession over the weekend of Aug 8-9 inside Australia's federally declared Submarine Cable Protection Zone off Perth; SUBCO's co-CEO Bevan Slattery flagged \"very suspicious\" vessel activity near the time and location, and the Australian Federal Police confirmed it is assessing a report of crime.",
+    detail: "Multi-sensor analysis combining AIS, synthetic aperture radar and electro-optical imagery (reported by Windward) identified a UAE-managed product tanker executing a slow \"racetrack\" pattern directly over the charted cable route during the disruption window, though no cause has been officially attributed and authorities stress this remains unconfirmed. Repairs are being planned by the cable consortium's marine maintenance operator with an estimated completion around Aug 26.",
+    sources: [
+      { label: "SUBCO Reports Dual INDIGO Shunt Faults Near Perth — Converge Digest", url: "https://convergedigest.com/subco-indigo-cable-shunt-faults-perth/" },
+      { label: "How Three Sensors Surface a Vessel of Interest in Australia's Cable Damage — Windward", url: "https://windward.ai/blog/how-three-sensors-surfaced-a-vessel-near-australias-cables/" },
+      { label: "Australia Investigates Damage To 2 Critical Undersea Communication Cables Off Perth — Marine Insight", url: "https://www.marineinsight.com/australia-investigates-damage-to-2-critical-undersea-communication-cables-off-perth/" }
+    ]
+  },
+  {
+    cat: "undersea", type: "point", coords: [-35.28, 149.13],
+    title: "ANU National Security College warns Australia faces escalating hybrid threats to subsea cable infrastructure",
+    date: "August 10, 2026", dateISO: "2026-08-10", standing: false,
+    brief: "A defense-funded report from the Australian National University's National Security College — \"Connected & Protected\" — warned the 16 privately owned subsea cables carrying ~99% of Australia's international data are a high-priority target in any conflict, citing Baltic Sea and Taiwan-area cable damage as evidence state actors are peacetime-testing cable infrastructure, and urged Canberra to build sovereign cable-repair and seabed-surveillance capability.",
+    detail: "The report notes Australia currently has no sovereign cable-repair vessel or spares stockpile, relying on repair ships based in Fiji, Singapore, Taiwan and Indonesia. Chinese state media criticized the report as overstating risk to 'serve military goals,' and some foreign analysts cited in coverage cautioned against over-securitizing routine commercial mishaps, noting anchors and trawlers historically account for the large majority of global seabed cable faults.",
+    sources: [
+      { label: "Connected & protected: building Australia's submarine cable resilience — ANU National Security College", url: "https://nsc.anu.edu.au/research/connected-protected-building-australias-submarine-cable-resilience" },
+      { label: "Australia's defense-funded report hypes risks to subsea cables to 'serve military goals' — Global Times", url: "https://www.globaltimes.cn/page/202608/1367919.shtml" }
+    ]
+  },
+  {
+    cat: "undersea", type: "point", coords: [26.20, 56.25],
+    title: "US Navy confirms modified Virginia-class \"seabed warfare\" submarine and new port-defense sonar for Gulf harbor protection",
+    date: "August 10, 2026", dateISO: "2026-08-10", standing: false,
+    brief: "US Navy officials publicly reconfirmed in August a modified Virginia-class submarine configuration that swaps the standard Virginia Payload Module for a classified seabed/subsea-infrastructure mission section, part of a stated push for \"seabed superiority\"; separately, Ultra Maritime's Sea Spear sonar demonstrated UUV detection in a port-protection scenario relevant to Gulf/UAE harbor defense during the Navy's 2026 Lanternfish exercise.",
+    detail: "The moves reflect a broader shift in undersea-warfare priorities toward protecting (and threatening) cables, pipelines, sensor networks and autonomous systems on the seabed itself, rather than only traditional anti-submarine/anti-surface missions — directly relevant to Gulf states' harbor-defense planning given the concentration of energy infrastructure and heightened Hormuz-conflict threat environment.",
+    sources: [
+      { label: "US Navy's Secret Virginia-Class Submarine Opens New Seabed War Front Against China and Russia — Defence Security Asia", url: "https://defencesecurityasia.com/en/us-navy-secret-virginia-class-submarine-seabed-warfare-china-russia/" },
+      { label: "US Navy Seeks 'Seabed Superiority' in Undersea Warfare — Naval News", url: "https://www.navalnews.com/event-news/cne-2026/2026/07/us-navy-seabed-superiority-undersea-warfare/" }
+    ]
+  },
+  {
+    cat: "crime", type: "point", coords: [14.50, -61.00],
+    title: "CARICOM IMPACS' Operation Eclipse disrupts US$54.5m in Caribbean smuggling assets and contraband",
+    date: "August 14, 2026", dateISO: "2026-08-14", standing: false,
+    brief: "CARICOM IMPACS reported Aug 14 that its month-long, intelligence-led Operation Eclipse — run with 14 CARICOM member states, 7 associate members and international partners including Canada, Colombia, France, the UK, the US and INTERPOL — disrupted transnational smuggling networks across the Caribbean, seizing over 5.2 tonnes of cocaine (~$44m), 1.8 tonnes of marijuana (~$6.8m) and thousands of units of contraband alcohol, cigarettes and banned refrigerant gas, plus intercepting 59 irregular migrants.",
+    detail: "The operation, actually conducted throughout May 2026 with results reported this week, targeted the Eastern Caribbean, Guyanese waters and transatlantic smuggling routes; contraband smuggling was the highest-volume case type (32.9% of active maritime cases) followed by cocaine trafficking (23.2%), illustrating the breadth of the regional maritime-crime picture CARICOM's law-enforcement partners are contending with.",
+    sources: [
+      { label: "Operation Eclipse disrupts $54.5 million in illicit assets across Caribbean — Dominica News Online", url: "https://dominicanewsonline.com/news/homepage/homepage-carousel/operation-eclipse-disrupts-54-5-million-in-illicit-assets-across-caribbean/" },
+      { label: "CARICOM IMPACS, PARTNERS DISRUPT TRANSNATIONAL SMUGGLING AND SEIZE US$54.5M IN ILLICIT ASSETS — CARICOM", url: "https://caricom.org/caricom-impacs-partners-disrupt-transnational-smuggling-and-seize-us54-5m-in-illicit-assets/" }
+    ]
+  },
+  {
+    cat: "sanctions", type: "point", coords: [54.71, 20.51],
+    title: "Putin threatens to seize European vessels in retaliation for shadow-fleet ship confiscations",
+    date: "August 12, 2026", dateISO: "2026-08-12", standing: true,
+    brief: "President Putin warned Aug 12, during Pacific Fleet drills, that Russia would begin seizing European commercial and merchant vessels \"in kind\" if Western states continue boarding, detaining and confiscating Russian shadow-fleet tankers, calling the EU's new mechanism to confiscate and sell sanctioned Russian oil cargoes \"nothing less than piracy and robbery.\"",
+    detail: "The threat followed the EU's July adoption of a mechanism allowing member states to confiscate and sell oil carried aboard shadow-fleet vessels evading sanctions. Russia's Pacific Fleet commander separately said the fleet was ready to begin inspecting commercial ships serving \"unfriendly nations,\" and Moscow indicated its response would not be limited to the specific waters where Russian vessels are detained — raising direct escalation risk for European-flagged and European-linked shipping well beyond the Baltic.",
+    sources: [
+      { label: "Putin threatens to seize European ships over Russian 'shadow fleet' cargo — Malay Mail", url: "https://www.malaymail.com/news/world/2026/08/12/putin-threatens-to-seize-european-ships-over-russian-shadow-fleet-cargo/231090" },
+      { label: "Putin Threatens Retaliation if Europe Seizes Russian Ships — The Moscow Times", url: "https://www.themoscowtimes.com/2026/08/12/putin-threatens-retaliation-if-europe-seizes-russian-ships-a93470" }
+    ]
+  },
+  {
+    cat: "incidents", type: "point", coords: [6.82, 79.87],
+    title: "Sri Lanka Navy Dvora fast attack craft sinks off Angulana; 11 rescued, one officer missing",
+    date: "August 15, 2026", dateISO: "2026-08-15", standing: false,
+    brief: "A Sri Lanka Navy Dvora-class fast attack craft got into distress and sank off Angulana around 11:40am on Aug 15 while returning from a routine patrol in rough weather; 11 sailors were rescued with the help of Angulana Police, local residents and fishermen and hospitalized in stable condition, while one naval officer remained missing as SAR and salvage operations continued.",
+    detail: "The Navy appointed a special board of inquiry to investigate the sinking, with naval diving and air units engaged in the search for the missing officer and salvage planning for the vessel itself. The incident highlights continuing safety risk for the coastal patrol craft Sri Lanka relies on for fisheries enforcement and IMBL patrolling in the Palk Strait/southern coast, an area already under strain from the ongoing India-Sri Lanka fishermen dispute tracked elsewhere in this report.",
+    sources: [
+      { label: "Search and Salvage Operations Underway After Sri Lanka Navy Vessel Runs Into Distress Off Angulana Coast — Lanka Newspapers", url: "https://www.lankanewspapers.com/2026/08/16/search-and-salvage-operations-underway-after-sri-lanka-navy-vessel-runs-into-distress-off-angulana-coast" },
+      { label: "11 Navy personnel rescued, one missing after Dvora craft accident off Angulana — Onlanka", url: "https://www.onlanka.com/news/11-navy-personnel-rescued-one-missing-after-dvora-craft-accident-off-angulana.html" }
+    ]
+  },
+  {
+    cat: "incidents", type: "point", coords: [18.02, -63.15],
+    title: "Multinational SAR effort rescues overdue solo sailor on disabled catamaran Ocean Time near Sint Maarten",
+    date: "August 13, 2026", dateISO: "2026-08-13", standing: false,
+    brief: "US Coast Guard, Dutch Caribbean Coast Guard and French rescue units coordinated to locate and recover 58-year-old Peter Baron aboard the disabled 45-foot sailing catamaran Ocean Time, about 11nm west of Sint Maarten, after he was reported overdue on a Tortola-to-Sint Maarten passage; a USCG HC-144 aircrew spotted him steering with the emergency tiller after a repeat steering-system failure, and Dutch Coast Guard units towed the vessel safely into Simpson Bay.",
+    detail: "Baron had first attempted the passage about a week earlier but turned back to Tortola after an initial steering failure, self-repaired the system, and then suffered a second failure on his Aug 9 restart — underscoring how a routine multinational SAR case can still require full cross-border coordination (US, Dutch, French assets) in the busy but sparsely covered waters of the Eastern Caribbean.",
+    sources: [
+      { label: "U.S. Coast Guard, Dutch Coast Guard, French international rescue efforts save overdue boater — US Coast Guard News", url: "https://www.news.uscg.mil/Press-Releases/Article/4574058/us-coast-guard-dutch-coast-guard-french-international-rescue-efforts-save-overd/" },
+      { label: "Missing Mariner Rescued on Partially-Disabled Catamaran — St. John Source", url: "https://stjohnsource.com/2026/08/14/missing-mariner-rescued-on-partially-disabled-catamaran/" }
     ]
   }
 ];
